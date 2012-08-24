@@ -1,0 +1,11 @@
+﻿.application
+{
+	background-color: #BBDDFF;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 600px;
+	height: 600px;
+	overflow: hidden;
+}
+
