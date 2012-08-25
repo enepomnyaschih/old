@@ -23,6 +23,8 @@
 		this.context.rotate(-this.world.ship.angle + Math.PI / 2);
 		this.context.translate(-this.world.ship.x, -this.world.ship.y);
 		
+		this.endingFlyAway();
+		
 		var screenCol = this.world.ship.getScreenCol();
 		var screenRow = this.world.ship.getScreenRow();
 		
@@ -182,6 +184,21 @@
 		this.context.fillText(text, x + 1, y + 1);
 		this.context.fillStyle = color;
 		this.context.fillText(text, x, y);
+	},
+	
+	endingFlyAway: function()
+	{
+		var t = this.world.ship.deadTime;
+		if (!t)
+			return;
+		
+		var x = this.world.ship.speedX;
+		var y = this.world.ship.speedY;
+		var s = Math.sqrt(x * x + y * y);
+		if (s < .1)
+			return;
+		
+		this.context.translate(-t * x / s, -t * y / s);
 	}
 });
 
