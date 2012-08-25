@@ -5,6 +5,7 @@
 	{
 		this.el = $('<div class="application" />');
 		
-		
+		this.el.append(images.test.clone());
+		this.el.append(images.test.clone());
 	}
 });
