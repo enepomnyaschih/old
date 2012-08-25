@@ -3,14 +3,14 @@
 	y        : null,  // absolute
 	radius   : null,
 
-    features : null,  // Array [ red, green, blue ], 0-1
+    features    : null, // World.Features
 
     init:function(screenX, screenY)
     {
         this.x = screenX + Util.random(World.Screen.size);
         this.y = screenY + Util.random(World.Screen.size);
         this.radius = Util.random(World.Star.maxRadius * 3/4) + 1/4 * World.Star.maxRadius;
-        this.features = [Math.random(), Math.random(), Math.random()];
+        this.features = new World.Features(Math.random(), Math.random(), Math.random());
     },
 
 	getWeight: function()
@@ -29,12 +29,14 @@
 
         if (s <= World.Star.maxRadius * 7) {
             var absoluteDrain = World.Star.kDrain / (s * s);
-            gravity.drain[0] = this.features[0] * absoluteDrain * World.Star.kStarToShipDrainProportion;
-            this.features[0] -= this.features[0] * absoluteDrain;
-            gravity.drain[1] = this.features[1] * absoluteDrain * World.Star.kStarToShipDrainProportion;
-            this.features[1] -= this.features[1] * absoluteDrain;
-            gravity.drain[2] = this.features[2] * absoluteDrain * World.Star.kStarToShipDrainProportion;
-            this.features[2] -= this.features[2] * absoluteDrain;
+            gravity.features.changeFuel(this.features.fuel * absoluteDrain * World.Star.kStarToShipDrainProportion);
+            this.features.changeFuel(-this.features.fuel * absoluteDrain);
+
+            gravity.features.changeBatteryPower(this.features.batteryPower * absoluteDrain * World.Star.kStarToShipDrainProportion);
+            this.features.changeBatteryPower(-this.features.batteryPower * absoluteDrain);
+
+            gravity.features.changeEnginePower(this.features.enginePower * absoluteDrain * World.Star.kStarToShipDrainProportion);
+            this.features.changeEnginePower(-this.features.enginePower * absoluteDrain);
         }
     }
 });
