@@ -45,12 +45,17 @@
     generateNextState : function()
     {
 		if (this.ship.deadTime)
+		{
 			++this.ship.deadTime;
+			this.ship.x += this.ship.speedX;
+			this.ship.y += this.ship.speedY;
+		}
 		
 		this.moveShip();
+
+        this.generateScreens(this.ship.x, this.ship.y);
 		
 		this.trails = this.trails.filter(function(trail) { return ++trail.time <= World.Trail.lifeTime; });
-		this.trails.push(new World.Trail(this.ship.x, this.ship.y));
 	},
 	
 	moveShip: function()
@@ -102,6 +107,12 @@
 
         if (gravity.isExploded) {
             ship.deadTime = 1;
+			ship.deadX = ship.x;
+			ship.deadY = ship.y;
+			
+			var s = Math.sqrt(ship.speedX * ship.speedX + ship.speedY * ship.speedY);
+			ship.speedX /= s;
+			ship.speedY /= s;
         }
 
         ship.enginePower += gravity.drain[0];
@@ -110,8 +121,8 @@
 
         ship.speedX += dSpeed * Math.cos(ship.angle) + gravity.accelerationX;
         ship.speedY += dSpeed * Math.sin(ship.angle) + gravity.accelerationY;
-
-        this.generateScreens(ship.x, ship.y);
+		
+		this.trails.push(new World.Trail(this.ship.x, this.ship.y));
     },
 	
 	eachScreen: function(col, row, callback, scope)

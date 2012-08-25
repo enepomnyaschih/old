@@ -7,6 +7,8 @@
 	enginePower : 0,  // 0-1
 	batteryPower : 0,  // 0-1
 	fuel        : 1,  // 0-1
+	deadX       : 0,
+	deadY       : 0,
 	deadTime    : 0,  // if 0 - alive
 
     engineUp    : false, // modify according user's control
