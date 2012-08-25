@@ -36,7 +36,7 @@
             this.screens[screenCol] = {};
 
         if (this.screens[screenCol][screenRow] == null)
-            this.screens[screenCol][screenRow] = new World.Screen(screenCol, screenRow);
+            this.screens[screenCol][screenRow] = new World.Screen(screenCol, screenRow, this.screens.length);
         else
             return;
 

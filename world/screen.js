@@ -3,15 +3,18 @@
 	row   : null,
 	stars : null, // Array of Star
 
-    init:function(col, row)
+    init:function(col, row, screenAmount)
     {
         this.col = col;
         this.row = row;
         this.stars = [];
+        var gamePhase = 0;
+        if (screenAmount > 9)
+            gamePhase = 1;
         var maxStars = Util.random(3/4 * World.Screen.starAmount) + 1/4 * World.Screen.starAmount;
         for (var i = 0; i < maxStars; i++)
         {
-            this.stars[i] = new World.Star(this.getX0(), this.getY0());
+            this.stars[i] = new World.Star(this.getX0(), this.getY0(), gamePhase);
         }
 
     },
