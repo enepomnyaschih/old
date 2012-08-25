@@ -85,7 +85,7 @@
 		var rgb = this.getFeaturesRgb(star.features, .5);
 		
 		var featuresMax = Math.max(star.features.fuel, star.features.enginePower, star.features.batteryPower);
-		var gradient = this.context.createRadialGradient(0, 0, .5, 0, 0, 1 + featuresMax);
+		var gradient = this.context.createRadialGradient(0, 0, .5, 0, 0, 1 + .7 * (.5 + .5 * Math.abs(Math.cos(star.blur))) * featuresMax);
 		gradient.addColorStop(0, Util.rgbaStr(rgb, 1));
 		gradient.addColorStop(1, Util.rgbaStr(rgb, 0));
 		

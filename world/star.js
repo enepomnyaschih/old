@@ -2,6 +2,7 @@
 	x        : null,  // absolute
 	y        : null,  // absolute
 	radius   : null,
+	blur     : 0,
 
     features    : null, // World.Features
 
@@ -10,6 +11,7 @@
         this.x = screenX + Util.random(World.Screen.size);
         this.y = screenY + Util.random(World.Screen.size);
         this.radius = Util.random(World.Star.maxRadius * 3/4) + 1/4 * World.Star.maxRadius;
+		this.blur = Util.random(Math.PI);
         if (gamePhase == 0)
             this.features = new World.Features(0, 0, 1);
         else
@@ -23,6 +25,7 @@
 
     calculateGravity : function(x, y, batteryPower, gravity)
     {
+		this.blur += .05;
         var s = Math.sqrt(Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2));
         if (s < this.radius)
 		{
