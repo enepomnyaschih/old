@@ -9,11 +9,12 @@
 		$("body").append(this.canvas.el);
 		
 		this.canvas.draw();
-		//setInterval(this._onTimer.inScope(this), 40);
+		setInterval(this._onTimer.inScope(this), 40);
 	},
 	
 	_onTimer: function()
 	{
+		this.world.generateNextState();
 		this.canvas.draw();
 	}
 });

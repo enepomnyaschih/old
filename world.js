@@ -38,17 +38,17 @@
     generateNextState : function()
     {
         var ship = this.ship;
-        ship.x = ship.x + ship.speedX * this.dt;
-        ship.y = ship.y + ship.speedY * this.dt;
+        ship.x = ship.x + ship.speedX * World.dt;
+        ship.y = ship.y + ship.speedY * World.dt;
         var dSpeed = 0;
 
 
 
         if (ship.engineUp) {
-            dSpeed += this.dt * ship.enginePower * this.kEnginePower;
+            dSpeed += this.dt * ship.enginePower * World.kEnginePower;
         }
         if (ship.engineDown) {
-            dSpeed -= this.dt * ship.enginePower * this.kEnginePower;
+            dSpeed -= this.dt * ship.enginePower * World.kEnginePower;
         }
 
 
