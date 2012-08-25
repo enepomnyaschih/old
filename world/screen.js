@@ -9,7 +9,7 @@
         this.row = row;
         this.stars = [];
         var gamePhase = 0;
-        if (screenAmount > 9)
+        if (screenAmount > 20)
             gamePhase = 1;
         var maxStars = Util.random(3/4 * World.Screen.starAmount) + 1/4 * World.Screen.starAmount;
         for (var i = 0; i < maxStars; i++)
@@ -37,4 +37,4 @@
 });
 
 World.Screen.size = 600;
-World.Screen.starAmount = 7;
+World.Screen.starAmount = 6;
