@@ -10,8 +10,13 @@
 	},
 	
     generateScreens : function (x, y) {
+
+        //console.log("koords" + x + " " + y);
+
         var screenCol = Math.floor(x / World.Screen.size);
         var screenRow = Math.floor(y / World.Screen.size);
+
+        //console.log("col&row" + screenCol + " " + screenRow);
 
         this.generateScreen(screenCol, screenRow);
         this.generateScreen(screenCol, screenRow - 1);
@@ -42,18 +47,23 @@
         ship.y = ship.y + ship.speedY * World.dt;
         var dSpeed = 0;
 
-
+        if (ship.engineLeft) {
+            ship.angle += World.dt * ship.enginePower * World.kRotate;
+        }
+        if (ship.engineRight) {
+            ship.angle -= World.dt * ship.enginePower * World.kRotate;
+        }
 
         if (ship.engineUp) {
-            dSpeed += this.dt * ship.enginePower * World.kEnginePower;
+            dSpeed += World.dt * ship.enginePower * World.kEnginePower;
         }
         if (ship.engineDown) {
-            dSpeed -= this.dt * ship.enginePower * World.kEnginePower;
+            dSpeed -= World.dt * ship.enginePower * World.kEnginePower;
         }
 
 
-        ship.speedX + dSpeed * Math.sin(ship.angle);
-        ship.speedY + dSpeed * Math.cos(ship.angle);
+        ship.speedX += dSpeed * Math.sin(ship.angle);
+        ship.speedY += dSpeed * Math.cos(ship.angle);
 
 
 
@@ -65,3 +75,5 @@
 World.dt = 1;
 
 World.kEnginePower = 1;
+
+World.kRotate = .001;
