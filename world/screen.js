@@ -37,4 +37,4 @@
 });
 
 World.Screen.size = 600;
-World.Screen.starAmount = 7;
+World.Screen.starAmount = 6;
