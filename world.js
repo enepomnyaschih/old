@@ -12,27 +12,19 @@
 		this.generateScreens(this.ship.x, this.ship.y);
 	},
 	
-    generateScreens : function (x, y) {
-
-        //console.log("koords" + x + " " + y);
-
+    generateScreens : function (x, y)
+    {
         var screenCol = Math.floor(x / World.Screen.size);
         var screenRow = Math.floor(y / World.Screen.size);
 
-        //console.log("col&row" + screenCol + " " + screenRow);
-
-        this.generateScreen(screenCol, screenRow);
-        this.generateScreen(screenCol, screenRow - 1);
-        this.generateScreen(screenCol, screenRow + 1);
-        this.generateScreen(screenCol - 1, screenRow);
-        this.generateScreen(screenCol - 1, screenRow - 1);
-        this.generateScreen(screenCol - 1, screenRow + 1);
-        this.generateScreen(screenCol + 1, screenRow);
-        this.generateScreen(screenCol + 1, screenRow - 1);
-        this.generateScreen(screenCol + 1, screenRow + 1);
+        this.eachScreenIndex(screenCol, screenRow, function(col, row)
+        {
+            this.generateScreen(col, row);
+        });
     },
 
-    generateScreen : function (screenCol, screenRow) {
+    generateScreen : function (screenCol, screenRow)
+    {
         if (this.screens[screenCol] == null)
             this.screens[screenCol] = {};
 
@@ -85,15 +77,10 @@
             var screenCol = Math.floor(x / World.Screen.size);
             var screenRow = Math.floor(y / World.Screen.size);
 
-            this.screens[screenCol][screenRow].calculateGravity(x, y, ship.features.batteryPower, gravity);
-            this.screens[screenCol][screenRow - 1].calculateGravity(x, y, ship.features.batteryPower, gravity);
-            this.screens[screenCol][screenRow + 1].calculateGravity(x, y, ship.features.batteryPower, gravity);
-            this.screens[screenCol - 1][screenRow].calculateGravity(x, y, ship.features.batteryPower, gravity);
-            this.screens[screenCol - 1][screenRow - 1].calculateGravity(x, y, ship.features.batteryPower, gravity);
-            this.screens[screenCol - 1][screenRow + 1].calculateGravity(x, y, ship.features.batteryPower, gravity);
-            this.screens[screenCol + 1][screenRow].calculateGravity(x, y, ship.features.batteryPower, gravity);
-            this.screens[screenCol + 1][screenRow - 1].calculateGravity(x, y, ship.features.batteryPower, gravity);
-            this.screens[screenCol + 1][screenRow + 1].calculateGravity(x, y, ship.features.batteryPower, gravity);
+            this.eachScreenIndex(screenCol, screenRow, function(col, row)
+            {
+                this.screens[col][row].calculateGravity(x, y, ship.features.batteryPower, gravity);
+            });
 
             speedX += gravity.accelerationX * ddt;
             speedY += gravity.accelerationY * ddt;
@@ -154,10 +141,17 @@
 	
 	eachScreen: function(col, row, callback, scope)
 	{
-		for (var r = row - 1; r <= row + 1; ++r)
-			for (var c = col - 1; c <= col + 1; ++c)
+        for (var c = col - 1; c <= col + 1; ++c)
+    		for (var r = row - 1; r <= row + 1; ++r)
 				callback.call(scope || this, this.screens[c][r]);
-	}
+	},
+
+    eachScreenIndex: function(col, row, callback, scope)
+    {
+        for (var c = col - 1; c <= col + 1; ++c)
+            for (var r = row -1; r <= row + 1; ++r)
+                callback.call(scope || this, c, r);
+    }
 });
 
 World.dt = 1;
