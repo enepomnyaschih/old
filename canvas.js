@@ -29,6 +29,7 @@
 		this.world.eachScreen(screenCol, screenRow, this.drawBg, this);
 		this.world.trails.each(this.drawTrail, this);
 		this.world.eachScreen(screenCol, screenRow, this.drawScreenStars, this);
+		this.world.smokes.each(this.drawSmoke, this);
 		
 		if (this.world.ship.deadTime)
 			this.drawExplosion(this.world.ship)
@@ -54,11 +55,26 @@
 		this.context.save();
 		
 		this.context.beginPath();
-		this.context.arc(trail.x, trail.y, 3, 0, 2 * Math.PI);
+		this.context.arc(trail.x, trail.y, 2, 0, 2 * Math.PI);
 		this.context.closePath();
 		
 		this.context.globalAlpha = trail.getOpacity();
 		this.context.fillStyle = "#C1C13E";
+		this.context.fill();
+		
+		this.context.restore();
+	},
+	
+	drawSmoke: function(smoke)
+	{
+		this.context.save();
+		
+		this.context.beginPath();
+		this.context.arc(smoke.getX(), smoke.getY(), 2, 0, 2 * Math.PI);
+		this.context.closePath();
+		
+		this.context.globalAlpha = smoke.getOpacity();
+		this.context.fillStyle = JW.Color.str(smoke.getColor());
 		this.context.fill();
 		
 		this.context.restore();

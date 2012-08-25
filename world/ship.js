@@ -26,5 +26,35 @@
 	getScreenRow: function()
 	{
 		return Math.floor(this.y / World.Screen.size);
+	},
+	
+	createSmokes: function( // Array of World.Smoke
+		back)
+	{
+		var result = [];
+		var floatCount = 3 * (World.minimumEnginePower + this.features.enginePower);
+		var count = Math.floor(floatCount);
+		if (floatCount - count >= Math.random())
+			++count;
+		
+		var dx = Math.cos(this.angle);
+		var dy = Math.sin(this.angle);
+		
+		var v1 = [ -8 * dx, -8 * dy ];
+		var v2 = [  6 * dy, -6 * dx ];
+		
+		var engines = [
+			[ v1[0] + v2[0], v1[1] + v2[1] ],
+			[ v1[0] - v2[0], v1[1] - v2[1] ]
+		];
+		
+		var angle = (back ? 0 : Math.PI) + this.angle;
+		for (var i = 0; i < count; ++i)
+		{
+			for (var j = 0; j < 2; ++j)
+				result.push(new World.Smoke(this.x + engines[j][0], this.y + engines[j][1], angle + 2 * (Math.random() - .5)));
+		}
+		
+		return result;
 	}
 });

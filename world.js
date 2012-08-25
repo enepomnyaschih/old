@@ -2,6 +2,7 @@
 	ship    : null,  // Ship
 	screens : null,  // Map from col to Map from row to Screen
 	trails  : null,  // Array of World.Trail
+	smokes  : null,  // Array of World.Smoke
 	screenAmount : 0,
 
 	init: function()
@@ -9,6 +10,7 @@
 		this.ship = new World.Ship();
 		this.screens = {};
 		this.trails = [];
+		this.smokes = [];
 		this.generateScreens(this.ship.x, this.ship.y);
 	},
 	
@@ -50,6 +52,7 @@
 		this.moveShip();
 		
 		this.trails = this.trails.filter(function(trail) { return ++trail.time <= World.Trail.lifeTime; });
+		this.smokes = this.smokes.filter(function(smoke) { return ++smoke.time <= World.Smoke.lifeTime; });
 	},
 	
 	moveShip: function()
@@ -107,10 +110,12 @@
         if (ship.features.fuel > 0 && ship.engineUp) {
             ship.features.changeFuel(-dFuel);
             dSpeed += World.dt * realEnginePower * World.kEnginePower;
+			this.createSmokes(false);
         }
         if (ship.features.fuel > 0 && ship.engineDown) {
             ship.features.changeFuel(-dFuel);
             dSpeed -= World.dt * realEnginePower * World.kEnginePower;
+			this.createSmokes(true);
         }
 
         speedX += dSpeed * Math.cos(ship.angle) * World.dt;
@@ -138,6 +143,12 @@
 		
 		this.trails.push(new World.Trail(this.ship.x, this.ship.y));
     },
+	
+	createSmokes: function(back)
+	{
+		var smokes = this.ship.createSmokes(back);
+		this.smokes.pushAll(smokes);
+	},
 	
 	eachScreen: function(col, row, callback, scope)
 	{
