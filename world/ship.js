@@ -37,16 +37,7 @@
 		if (floatCount - count >= Math.random())
 			++count;
 		
-		var dx = Math.cos(this.angle);
-		var dy = Math.sin(this.angle);
-		
-		var v1 = [ -8 * dx, -8 * dy ];
-		var v2 = [  6 * dy, -6 * dx ];
-		
-		var engines = [
-			[ v1[0] + v2[0], v1[1] + v2[1] ],
-			[ v1[0] - v2[0], v1[1] - v2[1] ]
-		];
+		var engines = this.getEnginesXY();
 		
 		var angle = (back ? 0 : Math.PI) + this.angle;
 		for (var i = 0; i < count; ++i)
@@ -56,5 +47,19 @@
 		}
 		
 		return result;
+	},
+	
+	getEnginesXY: function()
+	{
+		var dx = Math.cos(this.angle);
+		var dy = Math.sin(this.angle);
+		
+		var v1 = [ -8 * dx, -8 * dy ];
+		var v2 = [  6 * dy, -6 * dx ];
+		
+		return [
+			[ v1[0] + v2[0], v1[1] + v2[1] ],
+			[ v1[0] - v2[0], v1[1] - v2[1] ]
+		];
 	}
 });
