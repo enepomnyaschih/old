@@ -37,6 +37,8 @@
 		this.drawShip(this.world.ship);
 		
 		this.context.restore();
+		
+		this.drawIndicators();
 	},
 	
 	drawTrail: function(trail)
@@ -116,6 +118,27 @@
 		this.context.fill();
 		
 		this.context.restore();
+	},
+	
+	drawIndicators: function()
+	{
+		this.drawIndicator("Engine",    this.world.ship.enginePower, "red",   0);
+		this.drawIndicator("Generator", this.world.ship.bateryPower, "green", 200);
+		this.drawIndicator("Energy",    this.world.ship.fuel,        "blue",  400);
+	},
+	
+	drawIndicator: function(label, value, color, x)
+	{
+		this.context.fillStyle = "#222";
+		this.context.fillRect  (x + 100.5, 18.5, 80, 10);
+		
+		this.context.font = "11pt sans-serif";
+		this.context.fillStyle = color;
+		this.context.fillText(label, x + 20, 27.5);
+		this.context.fillRect(x + 100.5, 18.5, 80 * value, 10);
+		
+		this.context.strokeStyle = "white";
+		this.context.strokeRect(x + 100.5, 18.5, 80, 10);
 	}
 });
 
