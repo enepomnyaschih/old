@@ -18,7 +18,7 @@
 		return this.radius * this.radius * this.radius;
 	},
 
-    calculateGravity : function(x, y, gravity)
+    calculateGravity : function(x, y, batteryPower, gravity)
     {
         var s = Math.sqrt(Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2));
         if (s < this.radius)
@@ -29,7 +29,7 @@
 
         if (s <= World.Star.maxRadius * 7) {
             var absoluteDrain = World.Star.kDrain / (s * s);
-            gravity.features.changeFuel(this.features.fuel * absoluteDrain * World.Star.kStarToShipDrainProportion);
+            gravity.features.changeFuel(this.features.fuel * absoluteDrain * World.Star.kStarToShipDrainProportion * (1 + batteryPower) * World.Star.kBatteryPower);
             this.features.changeFuel(-this.features.fuel * absoluteDrain);
 
             gravity.features.changeBatteryPower(this.features.batteryPower * absoluteDrain * World.Star.kStarToShipDrainProportion);
@@ -42,6 +42,7 @@
 });
 
 World.Star.maxFeaturesSum = 1.0;
-World.Star.maxRadius = 12;
+World.Star.maxRadius = 20;
 World.Star.kDrain = 10;
 World.Star.kStarToShipDrainProportion = .1;
+World.Star.kBatteryPower = 10;

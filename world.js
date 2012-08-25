@@ -70,15 +70,15 @@
         var screenRow = Math.floor(y / World.Screen.size);
 
         var gravity = new World.Gravity();
-        this.screens[screenCol][screenRow].calculateGravity(x, y, gravity);
-        this.screens[screenCol][screenRow - 1].calculateGravity(x, y, gravity);
-        this.screens[screenCol][screenRow + 1].calculateGravity(x, y, gravity);
-        this.screens[screenCol - 1][screenRow].calculateGravity(x, y, gravity);
-        this.screens[screenCol - 1][screenRow - 1].calculateGravity(x, y, gravity);
-        this.screens[screenCol - 1][screenRow + 1].calculateGravity(x, y, gravity);
-        this.screens[screenCol + 1][screenRow].calculateGravity(x, y, gravity);
-        this.screens[screenCol + 1][screenRow - 1].calculateGravity(x, y, gravity);
-        this.screens[screenCol + 1][screenRow + 1].calculateGravity(x, y, gravity);
+        this.screens[screenCol][screenRow].calculateGravity(x, y, ship.features.batteryPower, gravity);
+        this.screens[screenCol][screenRow - 1].calculateGravity(x, y, ship.features.batteryPower, gravity);
+        this.screens[screenCol][screenRow + 1].calculateGravity(x, y, ship.features.batteryPower, gravity);
+        this.screens[screenCol - 1][screenRow].calculateGravity(x, y, ship.features.batteryPower, gravity);
+        this.screens[screenCol - 1][screenRow - 1].calculateGravity(x, y, ship.features.batteryPower, gravity);
+        this.screens[screenCol - 1][screenRow + 1].calculateGravity(x, y, ship.features.batteryPower, gravity);
+        this.screens[screenCol + 1][screenRow].calculateGravity(x, y, ship.features.batteryPower, gravity);
+        this.screens[screenCol + 1][screenRow - 1].calculateGravity(x, y, ship.features.batteryPower, gravity);
+        this.screens[screenCol + 1][screenRow + 1].calculateGravity(x, y, ship.features.batteryPower, gravity);
 
         var dSpeed = 0;
         var realEnginePower = ship.features.enginePower + World.minimumEnginePower;
@@ -90,10 +90,12 @@
             ship.angle -= World.dt * realEnginePower * World.kRotate;
         }
 
-        if (ship.engineUp) {
+        if (ship.features.fuel > 0 && ship.engineUp) {
+            ship.features.changeFuel(-World.dFuel);
             dSpeed += World.dt * realEnginePower * World.kEnginePower;
         }
-        if (ship.engineDown) {
+        if (ship.features.fuel > 0 && ship.engineDown) {
+            ship.features.changeFuel(-World.dFuel);
             dSpeed -= World.dt * realEnginePower * World.kEnginePower;
         }
 
@@ -128,6 +130,8 @@ World.kEnginePower = 1;
 
 World.kRotate = .5;
 
-World.kGravity = .05;
+World.kGravity = .1;
 
 World.minimumEnginePower = .05;
+
+World.dFuel = .01;
