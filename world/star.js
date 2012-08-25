@@ -5,15 +5,13 @@
 
     features    : null, // World.Features
 
-    init:function(screenX, screenY, gamePhase)
+    init:function(screenX, screenY, features)
     {
         this.x = screenX + Util.random(World.Screen.size);
         this.y = screenY + Util.random(World.Screen.size);
+
         this.radius = Util.random(World.Star.maxRadius * 3/4) + 1/4 * World.Star.maxRadius;
-        if (gamePhase == 0)
-            this.features = new World.Features(0, 0, 1);
-        else
-            this.features = new World.Features(Math.random(), Math.random(), Math.random());
+        this.features = features;
     },
 
 	getWeight: function()

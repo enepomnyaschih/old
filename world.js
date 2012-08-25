@@ -3,12 +3,20 @@
 	screens : null,  // Map from col to Map from row to Screen
 	trails  : null,  // Array of World.Trail
 	screenAmount : 0,
+    mode         : null,
+    createdModes : null,
 
 	init: function()
 	{
 		this.ship = new World.Ship();
 		this.screens = {};
 		this.trails = [];
+        this.mode = new Modes.BlueMode();
+        this.createdModes = {
+            blue       : true,
+            general    : false,
+            cleanColor : false
+        }
 		this.generateScreens(this.ship.x, this.ship.y);
 	},
 	
@@ -26,15 +34,36 @@
     generateScreen : function (screenCol, screenRow)
     {
         if (this.screens[screenCol] == null)
+        {
             this.screens[screenCol] = {};
+        }
 
-        if (this.screens[screenCol][screenRow] == null) {
-            this.screens[screenCol][screenRow] = new World.Screen(screenCol, screenRow, this.screenAmount);
+        if (this.screens[screenCol][screenRow] == null)
+        {
+            this.checkMode();
+
+            this.screens[screenCol][screenRow] = this.mode.generateScreen(screenCol, screenRow);
             this.screenAmount++;
         }
-        else
-            return;
+    },
 
+    checkMode : function ()
+    {
+        if(this.screenAmount <= 9)
+        {
+            return;
+        }
+        if(this.screenAmount > 9)
+        {
+            if(!this.createdModes.general)
+            {
+                this.mode = new Modes.GeneralMode();
+                this.createdModes.general = true;
+            }
+        }
+        else if(false)
+        {
+        }
     },
 
     generateNextState : function()
