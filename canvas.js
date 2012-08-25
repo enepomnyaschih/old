@@ -148,9 +148,9 @@
 	
 	drawIndicators: function()
 	{
-		this.drawIndicator("Engine",    this.world.ship.enginePower, "red",   0);
-		this.drawIndicator("Generator", this.world.ship.bateryPower, "green", 200);
-		this.drawIndicator("Energy",    this.world.ship.fuel,        "blue",  400);
+		this.drawIndicator("Engine",    this.world.ship.enginePower, "#ff0000",   0);
+		this.drawIndicator("Generator", this.world.ship.batteryPower, "#00ff00", 200);
+		this.drawIndicator("Energy",    this.world.ship.fuel,        "#0000ff",  400);
 	},
 	
 	drawIndicator: function(label, value, color, x)
