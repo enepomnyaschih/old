@@ -192,6 +192,13 @@
 		this.context.fillText(text, x + 1, y + 1);
 		this.context.fillStyle = color;
 		this.context.fillText(text, x, y);
+	},
+	
+	showStart: function()
+	{
+		this.context.font = "20pt sans-serif";
+		this.context.textAlign = "center";
+		this.drawText("Click or press Space to start", 300, 280, "#0F0");
 	}
 });
 

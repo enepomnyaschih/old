@@ -107,6 +107,13 @@
         ship.x = ship.x + ship.speedX * World.dt;
         ship.y = ship.y + ship.speedY * World.dt;
 
+        ship.features.changeFuel(gravity.features.fuel);
+        ship.features.changeBatteryPower(gravity.features.batteryPower);
+        ship.features.changeEnginePower(gravity.features.enginePower);
+
+        ship.speedX += dSpeed * Math.cos(ship.angle) + gravity.accelerationX;
+        ship.speedY += dSpeed * Math.sin(ship.angle) + gravity.accelerationY;
+		
         if (gravity.isExploded) {
             ship.deadTime = 1;
 			ship.deadX = ship.x;
@@ -116,13 +123,6 @@
 			ship.speedX /= s;
 			ship.speedY /= s;
         }
-
-        ship.features.changeFuel(gravity.features.fuel);
-        ship.features.changeBatteryPower(gravity.features.batteryPower);
-        ship.features.changeEnginePower(gravity.features.enginePower);
-
-        ship.speedX += dSpeed * Math.cos(ship.angle) + gravity.accelerationX;
-        ship.speedY += dSpeed * Math.sin(ship.angle) + gravity.accelerationY;
 		
 		this.trails.push(new World.Trail(this.ship.x, this.ship.y));
     },
