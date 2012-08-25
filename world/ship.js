@@ -4,6 +4,8 @@
 	speedX      : 0,
 	speedY      : 0,
 	angle       : 0,
+	deadX       : 0,
+	deadY       : 0,
     features    : null, // World.Features
 	deadTime    : 0,  // if 0 - alive
 

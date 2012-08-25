@@ -1,7 +1,8 @@
 ﻿var application;
 
 var images = {
-	"bg" : "images/bg.png"
+	"bg"   : "images/bg.png",
+	"ship" : "images/shipForeground.png"
 };
 
 $(function() {
