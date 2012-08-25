@@ -2,6 +2,7 @@
 	x        : null,  // absolute
 	y        : null,  // absolute
 	radius   : null,
+	blur     : 0,
 
     features    : null, // World.Features
 
@@ -11,6 +12,7 @@
         this.y = screenY + Util.random(World.Screen.size);
 
         this.radius = Util.random(World.Star.maxRadius * 3/4) + 1/4 * World.Star.maxRadius;
+        this.blur = Util.random(Math.PI);
         this.features = features;
     },
 
@@ -21,6 +23,7 @@
 
     calculateGravity : function(x, y, batteryPower, gravity)
     {
+		this.blur += .05;
         var s = Math.sqrt(Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2));
         if (s < this.radius)
 		{

@@ -43,8 +43,9 @@
 		{
 			this.context.font = "20pt sans-serif";
 			this.context.textAlign = "center";
-			this.drawText("Last hope of humanity", 300, 280, "red");
-			this.drawText("has been lost", 300, 320, "red");
+			this.drawText("Last hope of humanity", 300, 250, "red");
+			this.drawText("has been lost", 300, 280, "red");
+			this.drawText("Press Space or click to try again", 300, 340, "red");
 		}
 	},
 	
@@ -84,7 +85,7 @@
 		var rgb = this.getFeaturesRgb(star.features, .5);
 		
 		var featuresMax = Math.max(star.features.fuel, star.features.enginePower, star.features.batteryPower);
-		var gradient = this.context.createRadialGradient(0, 0, .5, 0, 0, 1 + featuresMax);
+		var gradient = this.context.createRadialGradient(0, 0, .5, 0, 0, 1 + .7 * (.5 + .5 * Math.abs(Math.cos(star.blur))) * featuresMax);
 		gradient.addColorStop(0, Util.rgbaStr(rgb, 1));
 		gradient.addColorStop(1, Util.rgbaStr(rgb, 0));
 		
