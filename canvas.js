@@ -23,16 +23,33 @@
 		this.context.rotate(-this.world.ship.angle + Math.PI / 2);
 		this.context.translate(-this.world.ship.x, -this.world.ship.y);
 		
+		this.world.trails.each(this.drawTrail, this);
+		
 		var screenCol = this.world.ship.getScreenCol();
 		var screenRow = this.world.ship.getScreenRow();	
 		
-		this.drawShip(this.world.ship);
 		for (var row = screenRow - 1; row <= screenRow + 1; ++row)
 		{
 			for (var col = screenCol - 1; col <= screenCol + 1; ++col)
 				this.drawScreen(this.world.screens[col][row]);
 		}
 		
+		this.drawShip(this.world.ship);
+		
+		this.context.restore();
+	},
+	
+	drawTrail: function(trail)
+	{
+		this.context.save();
+		
+		this.context.beginPath();
+		this.context.arc(trail.x, trail.y, 3, 0, 2 * Math.PI);
+		this.context.closePath();
+		
+		this.context.globalAlpha = trail.getOpacity();
+		this.context.fillStyle = "#C1C13E";
+		this.context.fill();
 		
 		this.context.restore();
 	},
