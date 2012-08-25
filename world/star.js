@@ -18,7 +18,7 @@
 
 	getWeight: function()
 	{
-		return this.radius * this.radius * this.radius;
+		return this.radius * this.radius;
 	},
 
     calculateGravity : function(x, y, batteryPower, gravity)

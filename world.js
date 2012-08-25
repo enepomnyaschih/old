@@ -52,6 +52,7 @@
 			++this.ship.deadTime;
 			this.ship.x += this.ship.speedX;
 			this.ship.y += this.ship.speedY;
+            this.generateScreens(this.ship.x, this.ship.y);
 		}
 		
 		this.moveShip();
@@ -107,6 +108,7 @@
 
         var dSpeed = 0;
         var realEnginePower = ship.features.enginePower + World.minimumEnginePower;
+		var dFuel = realEnginePower * World.dFuel;
 
         if (ship.engineLeft) {
             ship.angle += World.dt * realEnginePower * World.kRotate;
@@ -116,11 +118,11 @@
         }
 
         if (ship.features.fuel > 0 && ship.engineUp) {
-            ship.features.changeFuel(-World.dFuel);
+            ship.features.changeFuel(-dFuel);
             dSpeed += World.dt * realEnginePower * World.kEnginePower;
         }
         if (ship.features.fuel > 0 && ship.engineDown) {
-            ship.features.changeFuel(-World.dFuel);
+            ship.features.changeFuel(-dFuel);
             dSpeed -= World.dt * realEnginePower * World.kEnginePower;
         }
 
@@ -160,12 +162,12 @@
 
 World.dt = 1;
 
-World.kEnginePower = 1;
+World.kEnginePower = .2;
 
-World.kRotate = .5;
+World.kRotate = .2;
 
-World.kGravity = .1;
+World.kGravity = 1;
 
-World.minimumEnginePower = .05;
+World.minimumEnginePower = .25;
 
-World.dFuel = .01;
+World.dFuel = .02;
