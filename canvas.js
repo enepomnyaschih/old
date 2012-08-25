@@ -37,6 +37,8 @@
 		this.drawShip(this.world.ship);
 		
 		this.context.restore();
+		
+		this.drawIndicators();
 	},
 	
 	drawTrail: function(trail)
@@ -105,17 +107,55 @@
 		this.context.translate(ship.x, ship.y);
 		this.context.rotate(ship.angle);
 		
-		this.context.fillStyle = "white";
-		
-		this.context.beginPath();
-		this.context.moveTo( 10,  0);
-		this.context.lineTo(-10,  8);
-		this.context.lineTo(-10, -8);
-		this.context.closePath();
-		
-		this.context.fill();
+		if (ship.deadTime)
+		{
+			var t = ship.deadTime / 20 - 1;
+			var radius = 40 * Math.max(0, 1 - t * t);
+			var opacity = 1 - ship.deadTime / 40;
+			
+			this.context.beginPath();
+			this.context.arc(0, 0, radius, 0, 2 * Math.PI);
+			this.context.closePath();
+			
+			this.context.fillStyle = "#C1C13E";
+			this.context.globalAlpha = opacity;
+			this.context.fill();
+		}
+		else
+		{
+			this.context.fillStyle = "white";
+			
+			this.context.beginPath();
+			this.context.moveTo( 10,  0);
+			this.context.lineTo(-10,  8);
+			this.context.lineTo(-10, -8);
+			this.context.closePath();
+			
+			this.context.fill();
+		}
 		
 		this.context.restore();
+	},
+	
+	drawIndicators: function()
+	{
+		this.drawIndicator("Engine",    this.world.ship.enginePower, "red",   0);
+		this.drawIndicator("Generator", this.world.ship.bateryPower, "green", 200);
+		this.drawIndicator("Energy",    this.world.ship.fuel,        "blue",  400);
+	},
+	
+	drawIndicator: function(label, value, color, x)
+	{
+		this.context.fillStyle = "#222";
+		this.context.fillRect  (x + 100.5, 18.5, 80, 10);
+		
+		this.context.font = "11pt sans-serif";
+		this.context.fillStyle = color;
+		this.context.fillText(label, x + 20, 27.5);
+		this.context.fillRect(x + 100.5, 18.5, 80 * value, 10);
+		
+		this.context.strokeStyle = "white";
+		this.context.strokeRect(x + 100.5, 18.5, 80, 10);
 	}
 });
 

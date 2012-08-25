@@ -44,7 +44,21 @@
 
     generateNextState : function()
     {
+		if (this.ship.deadTime)
+			++this.ship.deadTime;
+		
+		this.moveShip();
+		
+		this.trails = this.trails.filter(function(trail) { return ++trail.time <= World.Trail.lifeTime; });
+		this.trails.push(new World.Trail(this.ship.x, this.ship.y));
+	},
+	
+	moveShip: function()
+	{
         var ship = this.ship;
+		if (ship.deadTime)
+			return;
+		
         var x = ship.x;
         var y = ship.y;
 
@@ -87,15 +101,13 @@
         ship.y = ship.y + ship.speedY * World.dt;
 
         if (gravity.isExploded) {
-            // TODO: animate explosion, end of the game
+            ship.deadTime = 1;
         }
+		
         ship.speedX += dSpeed * Math.cos(ship.angle) + gravity.accelerationX;
         ship.speedY += dSpeed * Math.sin(ship.angle) + gravity.accelerationY;
 
         this.generateScreens(ship.x, ship.y);
-
-		this.trails = this.trails.filter(function(trail) { return ++trail.time <= World.Trail.lifeTime; });
-		this.trails.push(new World.Trail(ship.x, ship.y));
     }
 });
 
