@@ -198,7 +198,10 @@
 	{
 		this.context.font = "20pt sans-serif";
 		this.context.textAlign = "center";
-		this.drawText("Click or press Space to start", 300, 280, "#0F0");
+		this.drawText("Fly closely to the stars and", 300, 220, "#0F0");
+		this.drawText("consume their power to improve", 300, 250, "#0F0");
+		this.drawText("your starship. Save energy", 300, 280, "#0F0");
+		this.drawText("Press Space or click to start", 300, 340, "#0F0");
 	}
 });
 
