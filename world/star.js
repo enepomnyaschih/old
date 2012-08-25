@@ -2,7 +2,8 @@
 	x        : null,  // absolute
 	y        : null,  // absolute
 	radius   : null,
-	features : null,  // Array [ red, green, blue ]
+
+    features : null,  // Array [ red, green, blue ], 0-1
 
     init:function(screenX, screenY)
     {
@@ -17,3 +18,5 @@
 		return this.radius * this.radius * this.radius;
 	}
 });
+
+World.Star.maxFeaturesSum = .7;
