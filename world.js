@@ -76,4 +76,4 @@ World.dt = 1;
 
 World.kEnginePower = 1;
 
-World.kRotate = .001;
+World.kRotate = .1;
