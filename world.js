@@ -33,11 +33,15 @@
         else
             return;
 
+    },
 
-
-
-
+    generateNextState : function()
+    {
+        ship.x = ship.x + ship.speedX * this.dt;
+        ship.y = ship.y + ship.speedY * this.dt;
+        generateScreens(ship.x, ship.y);
     }
-
 });
+
+World.dt = 1;
 
