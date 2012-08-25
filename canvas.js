@@ -150,7 +150,7 @@
 		this.context.translate(ship.x, ship.y);
 		this.context.rotate(ship.angle);
 		
-		this.context.fillStyle = JW.Color.str(this.getFeaturesRgb(this.world.ship.features, 1));
+		this.context.fillStyle = JW.Color.str(this.getFeaturesRgb(this.world.ship.features, 0.1));
 		
 		this.context.beginPath();
 		this.context.moveTo( 10,  0);
