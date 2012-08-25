@@ -1,11 +1,19 @@
 ﻿var Application = Class.extend({
-	el : null,  // jQuery element
+	world  : null,  // World
+	canvas : null,  // Canvas
 	
 	init: function()
 	{
-		this.el = $('<div class="application" />');
+		this.world = new World();
+		this.canvas = new Canvas(this.world);
+		$("body").append(this.canvas.el);
 		
-		//this.el.append(images.test.clone());
-		//this.el.append(images.test.clone());
+		this.canvas.draw();
+		//setInterval(this._onTimer.inScope(this), 40);
+	},
+	
+	_onTimer: function()
+	{
+		this.canvas.draw();
 	}
 });

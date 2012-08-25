@@ -19,4 +19,4 @@
 	}
 });
 
-World.Star.maxFeaturesSum = .7;
+World.Star.maxFeaturesSum = 1.0;

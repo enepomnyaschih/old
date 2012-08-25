@@ -11,7 +11,7 @@
         var maxStars = Util.random(10);
         for (var i = 0; i < maxStars; i++)
         {
-            this.stars[i] = new World.Star();
+            this.stars[i] = new World.Star(this.getX0(), this.getY0());
         }
 
     },

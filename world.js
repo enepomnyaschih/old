@@ -1,6 +1,14 @@
 ﻿var World = Class.extend({
 	ship    : null,  // Ship
 	screens : null,   // Map from col to Map from row to Screen
+	
+	init: function()
+	{
+		this.ship = new World.Ship();
+		this.screens = {};
+		this.generateScreens(this.ship.x, this.ship.y);
+	},
+	
     generateScreens : function (x, y) {
         var screenCol = Math.floor(x / World.Screen.size);
         var screenRow = Math.floor(y / World.Screen.size);
@@ -21,7 +29,7 @@
             this.screens[screenCol] = {};
 
         if (this.screens[screenCol][screenRow] == null)
-            this.screens[screenCol][screenRow] = new World.Screen();
+            this.screens[screenCol][screenRow] = new World.Screen(screenCol, screenRow);
         else
             return;
 
