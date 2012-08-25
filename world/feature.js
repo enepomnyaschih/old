@@ -10,9 +10,9 @@
 });
 
 World.Feature.items = [
-	new Feature("red", "enginePower"),
-	new Feature("green", "bateryPower"),
-	new Feature("blue", "fuel")
+	new World.Feature("red", "enginePower"),
+	new World.Feature("green", "bateryPower"),
+	new World.Feature("blue", "fuel")
 ];
 
 World.Feature.getByColor = function(color)
