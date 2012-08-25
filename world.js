@@ -37,11 +37,31 @@
 
     generateNextState : function()
     {
+        var ship = this.ship;
         ship.x = ship.x + ship.speedX * this.dt;
         ship.y = ship.y + ship.speedY * this.dt;
-        generateScreens(ship.x, ship.y);
+        var dSpeed = 0;
+
+
+
+        if (ship.engineUp) {
+            dSpeed += this.dt * ship.enginePower * this.kEnginePower;
+        }
+        if (ship.engineDown) {
+            dSpeed -= this.dt * ship.enginePower * this.kEnginePower;
+        }
+
+
+        ship.speedX + dSpeed * Math.sin(ship.angle);
+        ship.speedY + dSpeed * Math.cos(ship.angle);
+
+
+
+        this.generateScreens(ship.x, ship.y);
+
     }
 });
 
 World.dt = 1;
 
+World.kEnginePower = 1;
