@@ -21,11 +21,11 @@
 	
 	start: function()
 	{
+		if (this.world.ship.deadTime)
+			location.reload();
+		
 		if (this.timer)
 			return;
-		
-		if (this._clickHandler)
-			this.canvas.el.unbind("click", this._clickHandler);
 		
 		this.timer = setInterval(this._onTimer.inScope(this), 40);
 	},

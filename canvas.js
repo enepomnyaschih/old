@@ -43,8 +43,9 @@
 		{
 			this.context.font = "20pt sans-serif";
 			this.context.textAlign = "center";
-			this.drawText("Last hope of humanity", 300, 280, "red");
-			this.drawText("has been lost", 300, 320, "red");
+			this.drawText("Last hope of humanity", 300, 250, "red");
+			this.drawText("has been lost", 300, 280, "red");
+			this.drawText("Press Space or click to try again", 300, 340, "red");
 		}
 	},
 	
