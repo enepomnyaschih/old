@@ -2,9 +2,9 @@ World.Gravity = Class.extend({
     accelerationX       : 0,
     accelerationY       : 0,
     isExploded          : false,
-    drain               : null, // array of three color
+    features            : null, //World.Features
 
     init : function() {
-        this.drain = [0, 0, 0];
+        this.features = new World.Features(0, 0, 0);
     }
 });

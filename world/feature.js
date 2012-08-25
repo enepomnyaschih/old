@@ -11,7 +11,7 @@
 
 World.Feature.items = [
 	new World.Feature("red", "enginePower"),
-	new World.Feature("green", "bateryPower"),
+	new World.Feature("green", "batteryPower"),
 	new World.Feature("blue", "fuel")
 ];
 

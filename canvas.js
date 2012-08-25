@@ -75,25 +75,24 @@
 	
 	getStarRgb: function(star)
 	{
-		var featuresSum = 0;
-		for (var i = 0; i < 3; ++i)
-			featuresSum += star.features[i];
+		var featuresSum = star.features.enginePower + star.features.batteryPower + star.features.fuel;
 		
 		featuresSum = Math.min(World.Star.maxFeaturesSum, featuresSum);
 		
-		var featuresMax = Math.max(star.features[0], star.features[1], star.features[2]);
+		var featuresMax = Math.max(star.features.enginePower, star.features.batteryPower, star.features.fuel);
 		
 		var rgb = [];
-		for (var i = 0; i < 3; ++i)
-		{
-			var minC = 0.5 * (255 - featuresMax * 255);
-			rgb.push(Math.max(0, Math.min(255,
-				minC + star.features[i] * (255 - minC)
-			/*	(star.features[i] * Canvas.starColorCoef[i] +
-				featuresSum * Canvas.starFullColor[i] +
-				(World.Star.maxFeaturesSum - featuresSum) * Canvas.starEmptyColor[i]) / World.Star.maxFeaturesSum*/
-			)));
-		}
+
+        star.features.iterate(function(key)
+        {
+            var minC = 0.5 * (255 - featuresMax * 255);
+            rgb.push(Math.max(0, Math.min(255,
+                minC + star.features[key] * (255 - minC)
+                /*	(star.features[i] * Canvas.starColorCoef[i] +
+                 featuresSum * Canvas.starFullColor[i] +
+                 (World.Star.maxFeaturesSum - featuresSum) * Canvas.starEmptyColor[i]) / World.Star.maxFeaturesSum*/
+            )));
+        });
 		
 		//console.log(featuresSum, star.features, rgb);
 		
@@ -139,10 +138,10 @@
 	
 	drawIndicators: function()
 	{
-		this.drawIndicator("Engine",    this.world.ship.enginePower, "#ff0000",   0);
-		this.drawIndicator("Generator", this.world.ship.batteryPower, "#00ff00", 200);
-		this.drawIndicator("Energy",    this.world.ship.fuel,        "#0000ff",  400);
-	},
+        this.drawIndicator("Engine",    this.world.ship.features.enginePower, "#ff0000",   0);
+        this.drawIndicator("Generator", this.world.ship.features.batteryPower, "#00ff00", 200);
+        this.drawIndicator("Energy",    this.world.ship.features.fuel,        "#0000ff",  400);
+    },
 	
 	drawIndicator: function(label, value, color, x)
 	{
