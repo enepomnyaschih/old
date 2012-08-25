@@ -85,6 +85,9 @@
         ship.x = ship.x + ship.speedX * World.dt;
         ship.y = ship.y + ship.speedY * World.dt;
 
+        if (gravity.isExploded) {
+            // TODO: animate explosion, end of the game
+        }
         ship.speedX += dSpeed * Math.cos(ship.angle) + gravity.accelerationX;
         ship.speedY += dSpeed * Math.sin(ship.angle) + gravity.accelerationY;
 
@@ -101,4 +104,4 @@ World.kEnginePower = 1;
 
 World.kRotate = .1;
 
-World.kGravity = .01;
+World.kGravity = .05;
