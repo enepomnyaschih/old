@@ -24,7 +24,13 @@
 	getY0: function()
 	{
 		return this.row * World.Screen.size;
-	}
+	},
+
+    /// calculate gravity from every star in the screen.
+    calculateGravity : function(x, y, gravity)
+    {
+        this.stars.eachByMethod("calculateGravity", [x, y, gravity]);
+    }
 });
 
 World.Screen.size = 600;

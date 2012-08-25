@@ -45,8 +45,27 @@
     generateNextState : function()
     {
         var ship = this.ship;
-        ship.x = ship.x + ship.speedX * World.dt;
-        ship.y = ship.y + ship.speedY * World.dt;
+        var x = ship.x;
+        var y = ship.y;
+
+        // calculate gravity
+        var accelerationX = 0;
+        var accelerationY = 0;
+
+        var screenCol = Math.floor(x / World.Screen.size);
+        var screenRow = Math.floor(y / World.Screen.size);
+
+        var gravity = new World.Gravity();
+        this.screens[screenCol][screenRow].calculateGravity(x, y, gravity);
+        this.screens[screenCol][screenRow - 1].calculateGravity(x, y, gravity);
+        this.screens[screenCol][screenRow + 1].calculateGravity(x, y, gravity);
+        this.screens[screenCol - 1][screenRow].calculateGravity(x, y, gravity);
+        this.screens[screenCol - 1][screenRow - 1].calculateGravity(x, y, gravity);
+        this.screens[screenCol - 1][screenRow + 1].calculateGravity(x, y, gravity);
+        this.screens[screenCol + 1][screenRow].calculateGravity(x, y, gravity);
+        this.screens[screenCol + 1][screenRow - 1].calculateGravity(x, y, gravity);
+        this.screens[screenCol + 1][screenRow + 1].calculateGravity(x, y, gravity);
+
         var dSpeed = 0;
 
         if (ship.engineLeft) {
@@ -63,11 +82,14 @@
             dSpeed -= World.dt * ship.enginePower * World.kEnginePower;
         }
 
+        ship.x = ship.x + ship.speedX * World.dt;
+        ship.y = ship.y + ship.speedY * World.dt;
 
-        ship.speedX += dSpeed * Math.cos(ship.angle);
-        ship.speedY += dSpeed * Math.sin(ship.angle);
-
-
+        if (gravity.isExploded) {
+            // TODO: animate explosion, end of the game
+        }
+        ship.speedX += dSpeed * Math.cos(ship.angle) + gravity.accelerationX;
+        ship.speedY += dSpeed * Math.sin(ship.angle) + gravity.accelerationY;
 
         this.generateScreens(ship.x, ship.y);
 
@@ -81,3 +103,5 @@ World.dt = 1;
 World.kEnginePower = 1;
 
 World.kRotate = .1;
+
+World.kGravity = .05;
