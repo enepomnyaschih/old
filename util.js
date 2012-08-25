@@ -54,5 +54,10 @@
     random : function(max)
     {
         return Math.floor(Math.random() * max);
-    }
+    },
+	
+	rgbaStr : function(rgb, a)
+	{
+		return "rgba(" + Math.floor(rgb[0]) + ", " + Math.floor(rgb[1]) + ", " + Math.floor(rgb[2]) + ", " + a + ")";
+	}
 };

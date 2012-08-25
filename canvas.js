@@ -64,23 +64,37 @@
 	
 	drawStar: function(star)
 	{
-		this.context.fillStyle = JW.Color.str(this.getStarRgb(star));
+		this.context.save();
+		
+		this.context.translate(star.x, star.y);
+		this.context.scale(star.radius, star.radius);
+		
+		var rgb = this.getStarRgb(star);
+		
+		var featuresMax = Math.max(star.features[0], star.features[1], star.features[2]);
+		var gradient = this.context.createRadialGradient(0, 0, .5, 0, 0, 1 + featuresMax);
+		gradient.addColorStop(0, Util.rgbaStr(rgb, 1));
+		gradient.addColorStop(1, Util.rgbaStr(rgb, 0));
 		
 		this.context.beginPath();
-		this.context.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
+		this.context.arc(0, 0, 2, 0, 2 * Math.PI);
 		this.context.closePath();
 		
+		this.context.fillStyle = gradient;
 		this.context.fill();
+		
+		this.context.beginPath();
+		this.context.arc(0, 0, 1, 0, 2 * Math.PI);
+		this.context.closePath();
+		
+		this.context.fillStyle = JW.Color.str(rgb);
+		this.context.fill();
+		
+		this.context.restore();
 	},
 	
 	getStarRgb: function(star)
 	{
-		var featuresSum = 0;
-		for (var i = 0; i < 3; ++i)
-			featuresSum += star.features[i];
-		
-		featuresSum = Math.min(World.Star.maxFeaturesSum, featuresSum);
-		
 		var featuresMax = Math.max(star.features[0], star.features[1], star.features[2]);
 		
 		var rgb = [];
@@ -89,13 +103,8 @@
 			var minC = 0.5 * (255 - featuresMax * 255);
 			rgb.push(Math.max(0, Math.min(255,
 				minC + star.features[i] * (255 - minC)
-			/*	(star.features[i] * Canvas.starColorCoef[i] +
-				featuresSum * Canvas.starFullColor[i] +
-				(World.Star.maxFeaturesSum - featuresSum) * Canvas.starEmptyColor[i]) / World.Star.maxFeaturesSum*/
 			)));
 		}
-		
-		//console.log(featuresSum, star.features, rgb);
 		
 		return rgb;
 	},
