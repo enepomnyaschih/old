@@ -2,7 +2,8 @@
 	ship    : null,  // Ship
 	screens : null,  // Map from col to Map from row to Screen
 	trails  : null,  // Array of World.Trail
-	
+	screenAmount : 0,
+
 	init: function()
 	{
 		this.ship = new World.Ship();
@@ -35,8 +36,10 @@
         if (this.screens[screenCol] == null)
             this.screens[screenCol] = {};
 
-        if (this.screens[screenCol][screenRow] == null)
-            this.screens[screenCol][screenRow] = new World.Screen(screenCol, screenRow, this.screens.length);
+        if (this.screens[screenCol][screenRow] == null) {
+            this.screens[screenCol][screenRow] = new World.Screen(screenCol, screenRow, this.screenAmount);
+            this.screenAmount++;
+        }
         else
             return;
 
