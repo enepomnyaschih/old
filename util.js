@@ -48,5 +48,11 @@
 		}
 		
 		onLoaded();
-	}
+	},
+
+    /// random from 0 to max
+    random : function(max)
+    {
+        return Math.floor(Math.random() * max);
+    }
 };
