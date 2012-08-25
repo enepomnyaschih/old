@@ -20,6 +20,6 @@
 	
 	getScreenRow: function()
 	{
-		return Math.floor(this.x / World.Screen.size);
+		return Math.floor(this.y / World.Screen.size);
 	}
 });
