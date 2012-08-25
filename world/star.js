@@ -41,5 +41,5 @@
 
 World.Star.maxFeaturesSum = 1.0;
 World.Star.maxRadius = 12;
-World.Star.kDrain = .1;
-World.Star.kStarToShipDrainProportion = .01;
+World.Star.kDrain = 10;
+World.Star.kStarToShipDrainProportion = .1;

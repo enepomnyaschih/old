@@ -103,7 +103,11 @@
         if (gravity.isExploded) {
             ship.deadTime = 1;
         }
-		
+
+        ship.enginePower += gravity.drain[0];
+        ship.batteryPower += gravity.drain[1];
+        ship.fuel += gravity.drain[2];
+
         ship.speedX += dSpeed * Math.cos(ship.angle) + gravity.accelerationX;
         ship.speedY += dSpeed * Math.sin(ship.angle) + gravity.accelerationY;
 
@@ -115,7 +119,7 @@ World.dt = 1;
 
 World.kEnginePower = 1;
 
-World.kRotate = .1;
+World.kRotate = .5;
 
 World.kGravity = .05;
 
