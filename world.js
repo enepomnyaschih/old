@@ -67,19 +67,20 @@
         this.screens[screenCol + 1][screenRow + 1].calculateGravity(x, y, gravity);
 
         var dSpeed = 0;
+        var realEnginePower = ship.enginePower + World.minimumEnginePower;
 
         if (ship.engineLeft) {
-            ship.angle += World.dt * ship.enginePower * World.kRotate;
+            ship.angle += World.dt * realEnginePower * World.kRotate;
         }
         if (ship.engineRight) {
-            ship.angle -= World.dt * ship.enginePower * World.kRotate;
+            ship.angle -= World.dt * realEnginePower * World.kRotate;
         }
 
         if (ship.engineUp) {
-            dSpeed += World.dt * ship.enginePower * World.kEnginePower;
+            dSpeed += World.dt * realEnginePower * World.kEnginePower;
         }
         if (ship.engineDown) {
-            dSpeed -= World.dt * ship.enginePower * World.kEnginePower;
+            dSpeed -= World.dt * realEnginePower * World.kEnginePower;
         }
 
         ship.x = ship.x + ship.speedX * World.dt;
@@ -105,3 +106,5 @@ World.kEnginePower = 1;
 World.kRotate = .1;
 
 World.kGravity = .05;
+
+World.minimumEnginePower = .05;
