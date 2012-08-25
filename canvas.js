@@ -81,7 +81,7 @@
 		this.context.translate(star.x, star.y);
 		this.context.scale(star.radius, star.radius);
 		
-		var rgb = this.getStarRgb(star);
+		var rgb = this.getFeaturesRgb(star.features, .5);
 		
 		var featuresMax = Math.max(star.features.fuel, star.features.enginePower, star.features.batteryPower);
 		var gradient = this.context.createRadialGradient(0, 0, .5, 0, 0, 1 + featuresMax);
@@ -105,21 +105,17 @@
 		this.context.restore();
 	},
 	
-	getStarRgb: function(star)
+	getFeaturesRgb: function(features, coef)
 	{
-		var featuresSum = star.features.enginePower + star.features.batteryPower + star.features.fuel;
-		
-		featuresSum = Math.min(World.Star.maxFeaturesSum, featuresSum);
-		
-		var featuresMax = Math.max(star.features.enginePower, star.features.batteryPower, star.features.fuel);
+		var featuresMax = Math.max(features.enginePower, features.batteryPower, features.fuel);
 		
 		var rgb = [];
 
-        star.features.iterate(function(key)
+        features.iterate(function(key)
         {
-            var minC = 0.5 * (255 - featuresMax * 255);
+            var minC = coef * (255 - featuresMax * 255);
             rgb.push(Math.max(0, Math.min(255,
-                minC + star.features[key] * (255 - minC)
+                minC + features[key] * (255 - minC)
             )));
         });
 		
@@ -154,7 +150,7 @@
 		this.context.translate(ship.x, ship.y);
 		this.context.rotate(ship.angle);
 		
-		this.context.fillStyle = "white";
+		this.context.fillStyle = JW.Color.str(this.getFeaturesRgb(this.world.ship.features, 1));
 		
 		this.context.beginPath();
 		this.context.moveTo( 10,  0);
@@ -163,6 +159,8 @@
 		this.context.closePath();
 		
 		this.context.fill();
+		
+		this.context.drawImage(images.ship[0], -20, -20);
 		
 		this.context.restore();
 	},
