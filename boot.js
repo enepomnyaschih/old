@@ -1,7 +1,7 @@
 ﻿var application;
 
 var images = {
-	"test" : "images/test.png"
+//	"test" : "images/test.png"
 };
 
 $(function() {
