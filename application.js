@@ -28,7 +28,10 @@
 			case 38: this.world.ship.engineUp = true; break;
 			case 39: this.world.ship.engineRight = true; break;
 			case 40: this.world.ship.engineDown = true; break;
+			default: return;
 		}
+		
+		event.preventDefault();
 	},
 	
 	_onKeyUp: function(event)
@@ -39,6 +42,9 @@
 			case 38: this.world.ship.engineUp = false; break;
 			case 39: this.world.ship.engineRight = false; break;
 			case 40: this.world.ship.engineDown = false; break;
+			default: return;
 		}
+		
+		event.preventDefault();
 	}
 });
