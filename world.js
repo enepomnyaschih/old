@@ -62,8 +62,8 @@
         }
 
 
-        ship.speedX += dSpeed * Math.sin(ship.angle);
-        ship.speedY += dSpeed * Math.cos(ship.angle);
+        ship.speedX += dSpeed * Math.cos(ship.angle);
+        ship.speedY += dSpeed * Math.sin(ship.angle);
 
 
 
