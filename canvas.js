@@ -23,22 +23,26 @@
 		this.context.rotate(-this.world.ship.angle + Math.PI / 2);
 		this.context.translate(-this.world.ship.x, -this.world.ship.y);
 		
-		this.world.trails.each(this.drawTrail, this);
-		
 		var screenCol = this.world.ship.getScreenCol();
-		var screenRow = this.world.ship.getScreenRow();	
+		var screenRow = this.world.ship.getScreenRow();
 		
-		for (var row = screenRow - 1; row <= screenRow + 1; ++row)
-		{
-			for (var col = screenCol - 1; col <= screenCol + 1; ++col)
-				this.drawScreen(this.world.screens[col][row]);
-		}
+		this.world.eachScreen(screenCol, screenRow, this.drawBg, this);
+		this.world.trails.each(this.drawTrail, this);
+		this.world.eachScreen(screenCol, screenRow, this.drawScreenStars, this);
 		
 		this.drawShip(this.world.ship);
 		
 		this.context.restore();
 		
 		this.drawIndicators();
+		
+		if (this.world.ship.deadTime > 30)
+		{
+			this.context.font = "20pt sans-serif";
+			this.context.textAlign = "center";
+			this.drawText("Last hope of humanity", 300, 280, "red");
+			this.drawText("has been lost", 300, 320, "red");
+		}
 	},
 	
 	drawTrail: function(trail)
@@ -56,7 +60,12 @@
 		this.context.restore();
 	},
 	
-	drawScreen: function(screen)
+	drawBg: function(screen)
+	{
+		this.context.drawImage(images.bg[0], screen.getX0(), screen.getY0());
+	},
+	
+	drawScreenStars: function(screen)
 	{
 		for (var i = 0; i < screen.stars.length; ++i)
 			this.drawStar(screen.stars[i]);
@@ -156,15 +165,23 @@
 	drawIndicator: function(label, value, color, x)
 	{
 		this.context.fillStyle = "#222";
-		this.context.fillRect  (x + 100.5, 18.5, 80, 10);
+		this.context.fillRect(x + 100.5, 18.5, 80, 10);
 		
 		this.context.font = "11pt sans-serif";
-		this.context.fillStyle = color;
-		this.context.fillText(label, x + 20, 27.5);
+		this.context.textAlign = "end";
+		this.drawText(label, x + 80, 27.5, color);
 		this.context.fillRect(x + 100.5, 18.5, 80 * value, 10);
 		
 		this.context.strokeStyle = "white";
 		this.context.strokeRect(x + 100.5, 18.5, 80, 10);
+	},
+	
+	drawText: function(text, x, y, color)
+	{
+		this.context.fillStyle = "white";
+		this.context.fillText(text, x + 1, y + 1);
+		this.context.fillStyle = color;
+		this.context.fillText(text, x, y);
 	}
 });
 
