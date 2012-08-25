@@ -112,7 +112,14 @@
         ship.speedY += dSpeed * Math.sin(ship.angle) + gravity.accelerationY;
 
         this.generateScreens(ship.x, ship.y);
-    }
+    },
+	
+	eachScreen: function(col, row, callback, scope)
+	{
+		for (var r = row - 1; r <= row + 1; ++r)
+			for (var c = col - 1; c <= col + 1; ++c)
+				callback.call(scope || this, this.screens[c][r]);
+	}
 });
 
 World.dt = 1;
