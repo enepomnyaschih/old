@@ -25,13 +25,17 @@
     {
         var s = Math.sqrt(Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2));
         if (s < this.radius)
+		{
             gravity.isExploded = true;
+			return;
+		}
+		
         var acceleration = World.kGravity * this.getWeight() / (s * s);
         gravity.accelerationX += acceleration * (this.x - x) / s;
         gravity.accelerationY += acceleration * (this.y - y) / s;
 
         if (s <= World.Star.maxRadius * 7) {
-            var absoluteDrain = World.Star.kDrain / (s * s);
+            var absoluteDrain = World.Star.kDrain * Math.max(0, 1 - s / (World.Star.drainRadiusPerWeight * this.getWeight()));
             gravity.features.changeFuel(this.features.fuel * absoluteDrain * World.Star.kStarToShipDrainProportion * (1 + batteryPower) * World.Star.kBatteryPower);
             this.features.changeFuel(-this.features.fuel * absoluteDrain);
 
@@ -46,6 +50,7 @@
 
 World.Star.maxFeaturesSum = 1.0;
 World.Star.maxRadius = 20;
-World.Star.kDrain = 10;
-World.Star.kStarToShipDrainProportion = .1;
-World.Star.kBatteryPower = 10;
+World.Star.drainRadiusPerWeight = .8;
+World.Star.kDrain = .1;
+World.Star.kStarToShipDrainProportion = .03;
+World.Star.kBatteryPower = 3;
