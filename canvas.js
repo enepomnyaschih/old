@@ -20,7 +20,7 @@
 		
 		this.context.translate(World.Screen.size / 2, World.Screen.size / 2);
 		this.context.rotate(this.world.ship.angle - Math.PI / 2);
-		this.context.translate(-this.world.ship.x, -this.world.ship.y);
+		this.context.translate(-this.world.ship.x, this.world.ship.y);
 		
 		var screenCol = this.world.ship.getScreenCol();
 		var screenRow = this.world.ship.getScreenRow();
@@ -47,7 +47,7 @@
 		this.context.fillStyle = JW.Color.str(this.getStarRgb(star));
 		
 		this.context.beginPath();
-		this.context.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
+		this.context.arc(star.x, -star.y, star.radius, 0, 2 * Math.PI);
 		this.context.closePath();
 		
 		this.context.fill();
@@ -84,7 +84,7 @@
 	{
 		this.context.save();
 		
-		this.context.translate(ship.x, ship.y);
+		this.context.translate(ship.x, -ship.y);
 		this.context.rotate(-ship.angle);
 		
 		this.context.fillStyle = "white";
