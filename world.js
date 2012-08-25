@@ -1,11 +1,13 @@
 ﻿var World = Class.extend({
 	ship    : null,  // Ship
-	screens : null,   // Map from col to Map from row to Screen
+	screens : null,  // Map from col to Map from row to Screen
+	trails  : null,  // Array of World.Trail
 	
 	init: function()
 	{
 		this.ship = new World.Ship();
 		this.screens = {};
+		this.trails = [];
 		this.generateScreens(this.ship.x, this.ship.y);
 	},
 	
@@ -87,6 +89,8 @@
 
         this.generateScreens(ship.x, ship.y);
 
+		this.trails = this.trails.filter(function(trail) { return ++trail.time <= World.Trail.lifeTime; });
+		this.trails.push(new World.Trail(ship.x, ship.y));
     }
 });
 
