@@ -66,8 +66,6 @@
         this.screens[screenCol + 1][screenRow - 1].calculateGravity(x, y, gravity);
         this.screens[screenCol + 1][screenRow + 1].calculateGravity(x, y, gravity);
 
-        ship.x = ship.x + ship.speedX * World.dt;
-        ship.y = ship.y + ship.speedY * World.dt;
         var dSpeed = 0;
 
         if (ship.engineLeft) {
@@ -83,6 +81,9 @@
         if (ship.engineDown) {
             dSpeed -= World.dt * ship.enginePower * World.kEnginePower;
         }
+
+        ship.x = ship.x + ship.speedX * World.dt;
+        ship.y = ship.y + ship.speedY * World.dt;
 
         ship.speedX += dSpeed * Math.cos(ship.angle) + gravity.accelerationX;
         ship.speedY += dSpeed * Math.sin(ship.angle) + gravity.accelerationY;
