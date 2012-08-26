@@ -268,9 +268,9 @@
 		this.context.save();
 		
 		this.context.translate(this.world.monster.x, this.world.monster.y);
-		this.context.rotate(this.world.monster.angle);
+		this.context.rotate(this.world.ship.angle);
 		
-		this.context.drawImage(images.monster[0], -40, -40);
+		this.context.drawImage(images.monster[0], -20, -20);
 		
 		this.context.restore();
 	},
@@ -278,7 +278,7 @@
 	drawIndicators: function()
 	{
         this.drawIndicator("Engine",    this.world.ship.features.enginePower, "#ff0000",   0);
-        this.drawIndicator("Generator", this.world.ship.features.batteryPower, "#00ff00", 200);
+        this.drawIndicator("Capture Ray", this.world.ship.features.batteryPower, "#00ff00", 200);
         this.drawIndicator("Energy",    this.world.ship.features.fuel,        "#0000ff",  400);
     },
 	
