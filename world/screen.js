@@ -12,12 +12,12 @@
 
 	getX0: function()
 	{
-		return this.col * World.Screen.size;
+		return this.col * World.screenSize;
 	},
 	
 	getY0: function()
 	{
-		return this.row * World.Screen.size;
+		return this.row * World.screenSize;
 	},
 
     /// calculate gravity from every star in the screen.
@@ -27,11 +27,8 @@
     }
 });
 
-World.Screen.size = 600;
-World.Screen.starAmount = 6;
-
 World.Screen.getX0Y0 = function (col, row)
 {
-    return [col * World.Screen.size, row * World.Screen.size];
+    return [col * World.screenSize, row * World.screenSize];
 }
 
