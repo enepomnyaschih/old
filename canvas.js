@@ -82,10 +82,10 @@
 		
 		//this.drawDrainingRay({ y1 : -Math.PI / 16, y2 : -Math.PI / 25, star: new World.Star(0, 0, new World.Features(1, 0, 0)), s: 80 });
 		
-		if (this.world.lastGravity)
+		if (this.world.lastInteraction)
 		{
-			console.log(this.world.lastGravity.drainingStars.length);
-			this.world.lastGravity.drainingStars.each(this.drawDrainingStar, this);
+			console.log(this.world.lastInteraction.drainingStars.length);
+			this.world.lastInteraction.drainingStars.each(this.drawDrainingStar, this);
 		}
 		
 		this.context.restore();

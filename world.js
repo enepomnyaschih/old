@@ -6,7 +6,7 @@
 	screenAmount : 0,
     mode         : null,
     createdModes : null,
-    lastGravity  : null,
+    lastInteraction  : null,
 
 	init: function()
 	{
@@ -113,8 +113,18 @@
             y += speedY * ddt;
         }
         this.generateScreens(x, y);
+
+        var screenCol = Math.floor(x / Level.current.screenSize);
+        var screenRow = Math.floor(y / Level.current.screenSize);
+
         ship.x = x;
         ship.y = y;
+
+        var interaction = new World.StarsShipInteraction();
+        this.eachScreenIndex(screenCol, screenRow, function(col, row)
+        {
+            this.screens[col][row].calculateInteraction(ship, interaction);
+        });
 
 
         var dSpeed = 0;
@@ -145,9 +155,9 @@
         ship.speedX = speedX;
         ship.speedY = speedY;
 
-        ship.features.changeFuel(gravity.features.fuel);
-        ship.features.changeBatteryPower(gravity.features.batteryPower);
-        ship.features.changeEnginePower(gravity.features.enginePower);
+        ship.features.changeFuel(interaction.features.fuel);
+        ship.features.changeBatteryPower(interaction.features.batteryPower);
+        ship.features.changeEnginePower(interaction.features.enginePower);
 
         ship.speedX += dSpeed * Math.cos(ship.angle) + gravity.accelerationX;
         ship.speedY += dSpeed * Math.sin(ship.angle) + gravity.accelerationY;
@@ -158,7 +168,7 @@
             ship.speedY = Level.current.maxSpeed * ship.speedY / speedModule;
         }
 
-        if (gravity.isExploded) {
+        if (interaction.isExploded) {
             ship.deadTime = 1;
 			ship.deadX = ship.x;
 			ship.deadY = ship.y;
@@ -168,7 +178,7 @@
 			ship.speedY /= s;
         }
 
-        this.lastGravity = gravity;
+        this.lastInteraction = interaction;
 
         // check if the ship is a winner.
         if (ship.features.fuel >= 1 
