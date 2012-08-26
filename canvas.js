@@ -30,32 +30,44 @@
 		this.world.eachScreen(screenCol, screenRow, this.drawScreenStars, this);
 		this.world.smokes.each(this.drawSmoke, this);
 		
+		if (!this.world.ship.deadTime)
+			this.drawShip(this.world.ship);
+		
+		this.drawMonster();
+		
 		if (this.world.ship.deadTime)
 			this.drawExplosion(this.world.ship)
-		else
-			this.drawShip(this.world.ship);
 		
 		this.context.restore();
 		
 		this.drawIndicators();
 		this.drawLevel();
 		
+		this.context.font = "20pt sans-serif";
+		this.context.textAlign = "center";
+		
 		if (this.world.ship.deadTime > 30)
 		{
-			this.context.font = "20pt sans-serif";
-			this.context.textAlign = "center";
 			this.drawText("Last hope of humanity", 300, 250, "red");
 			this.drawText("has been lost", 300, 280, "red");
 			this.drawText("Press Space or click to try again", 300, 340, "red");
 		}
-
-		if (this.world.ship.isWinner)
+		else if (this.world.ship.isWinner)
 		{
-			this.context.font = "20pt sans-serif";
-			this.context.textAlign = "center";
 			this.drawText("Congratulation!", 300, 200, "white");
 			this.drawText("You are on the top of Color EVOLUTION", 300, 230, "white");
 			this.drawText("Press Space or click to start next level", 300, 440, "gray");
+		}
+		else
+		{
+			if (this.world.ship.features.fuel <= 0)
+				this.drawText("Out of fuel!", 300, 400, "#00F");
+			
+			if (this.world.monster)
+			{
+				this.drawText("Hurry! Violent monster is", 300, 450, "#F00");
+				this.drawText("hunger for your soul!", 300, 480, "#F00");
+			}
 		}
 	},
 	
@@ -246,6 +258,21 @@
 		this.context.fill();
 		
 		this.context.drawImage(images.ship[0], -20, -20);
+		
+		this.context.restore();
+	},
+	
+	drawMonster: function()
+	{
+		if (!this.world.monster)
+			return;
+		
+		this.context.save();
+		
+		this.context.translate(monster.x, monster.y);
+		this.context.rotate(monster.angle);
+		
+		this.context.drawImage(images.monster[0], -40, -40);
 		
 		this.context.restore();
 	},
