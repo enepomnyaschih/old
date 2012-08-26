@@ -8,6 +8,7 @@
 	deadY       : 0,
     features    : null, // World.Features
 	deadTime    : 0,  // if 0 - alive
+    isWinner    : false, // no comments
 
     engineUp    : false, // modify according user's control
     engineDown  : false, // modify according user's control
