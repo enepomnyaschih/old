@@ -24,6 +24,10 @@
     calculateGravity : function(ship, ddt, gravity)
     {
         this.stars.eachByMethod("calculateGravity", [ship, ddt, gravity]);
+    },
+
+    calculateInteraction : function(ship, interaction) {
+        this.stars.eachByMethod("calculateInteraction", [ship, interaction]);
     }
 });
 

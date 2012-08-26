@@ -63,6 +63,12 @@
 
     intersectionLength : function (segment1x1, segment1x2, segment2x1, segment2x2)
     {
+        if (segment1x1 > segment1x2)
+            segment1x1 -= Math.PI * 2;
+
+        if (segment2x1 > segment2x2)
+            segment2x1 -= Math.PI * 2;
+
         if (segment1x1 >= segment2x1 && segment1x1 <= segment2x2) {
             return [segment1x1, Math.min(segment1x2, segment2x2)];
         }
