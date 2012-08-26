@@ -138,15 +138,17 @@
             ship.angle -= Level.current.dt * realEnginePower * Level.current.kRotate;
         }
 
-        if (ship.features.fuel > 0 && ship.engineUp) {
+        if (ship.features.fuel > 0 && ship.engineUp && !ship.engineDown) {
             ship.features.changeFuel(-dFuel);
             dSpeed += Level.current.dt * realEnginePower * Level.current.kEnginePower;
 			this.createSmokes(false);
+			tracks.engine.play();
         }
-        if (ship.features.fuel > 0 && ship.engineDown) {
+        if (ship.features.fuel > 0 && ship.engineDown && !ship.engineUp) {
             ship.features.changeFuel(-dFuel);
             dSpeed -= Level.current.dt * realEnginePower * Level.current.kEnginePower;
 			this.createSmokes(true);
+			tracks.engine.play();
         }
 
         speedX += dSpeed * Math.cos(ship.angle) * Level.current.dt;
@@ -181,6 +183,9 @@
         }
 
         this.lastInteraction = interaction;
+		
+		if (interaction.drainingStars.length)
+			tracks.drain.play();
 
         // check if the ship is a winner.
         if (ship.features.fuel >= 1 
