@@ -1,4 +1,6 @@
-var Level = Class.extend({
+var Level = JW.Config.extend({
+	index : 0,
+	description : null, // Array of String
     dt : 1,
     kEnginePower : .2,
     kRotate : .2,
@@ -14,15 +16,15 @@ var Level = Class.extend({
     trailLifeTime : 80,
     screenSize : 600,
     starInScreenAmount : 0,
-
     modes : null, //modes properties;
-
-    init : function(kStarToShipDrainProportion, modes) {
-        this.kStarToShipDrainProportion = kStarToShipDrainProportion;
-        this.modes = modes;
+	
+	init: function(config, index)
+	{
+		this._super(config);
+		this.index = index;
         this.starInScreenAmount = Level.starInScreenAmount;
-    },
-
+	},
+	
     getCurrentMode : function (screensAmount)
     {
         var currentMode = this.modes[0][1];
@@ -39,22 +41,53 @@ var Level = Class.extend({
     }
 });
 
-Level.starInScreenAmount = 4;
 Level.levels = [
-    new Level(.4, [
-        [0,  new Modes.BlueMode(2)],
-        [9,  new Modes.CleanColorMode(Modes.CleanColorMode.typeOneColor, [1, 0, 0], 2) ],
-        [15, new Modes.CleanColorMode(Modes.CleanColorMode.typeOneColor, [0, 1, 0], 2 ) ],
-        [20, new Modes.CleanColorMode(Modes.CleanColorMode.typeOneColor, [0, 1, 1], 3 ) ],
-        [25, new Modes.CleanColorMode(Modes.CleanColorMode.typeOneColor, [1, 0, 1], 3 ) ],
-        [30, new Modes.CleanColorMode(Modes.CleanColorMode.typeOneColor, [1, 1, 0], 4 ) ],
-        [35, new Modes.CleanColorMode(Modes.CleanColorMode.typeAllColors, [1, 1, 1], 6 ) ],
-        [50, new Modes.GeneralMode(8) ]
-        ]),
-
-    new Level(.1,    [[0, new Modes.GeneralMode(Level.starInScreenAmount) ]] ),
-    new Level(.05,   [[0, new Modes.GeneralMode(Level.starInScreenAmount) ]] ),
-    new Level(.025,  [[0, new Modes.GeneralMode(Level.starInScreenAmount) ]] )
+	{
+		description : [
+			"Fly closely to the stars and",
+			"consume their power to improve",
+			"your starship. Save energy"
+		],
+		modes : [
+			[0,  new Modes.BlueMode(2)],
+			[9,  new Modes.CleanColorMode(Modes.CleanColorMode.typeOneColor, [1, 0, 0], 2) ],
+			[15, new Modes.CleanColorMode(Modes.CleanColorMode.typeOneColor, [0, 1, 0], 2 ) ],
+			[20, new Modes.CleanColorMode(Modes.CleanColorMode.typeOneColor, [0, 1, 1], 3 ) ],
+			[25, new Modes.CleanColorMode(Modes.CleanColorMode.typeOneColor, [1, 0, 1], 3 ) ],
+			[30, new Modes.CleanColorMode(Modes.CleanColorMode.typeOneColor, [1, 1, 0], 4 ) ],
+			[35, new Modes.CleanColorMode(Modes.CleanColorMode.typeAllColors, [1, 1, 1], 6 ) ],
+			[50, new Modes.GeneralMode(8) ]
+		],
+		kStarToShipDrainProportion : .4
+	},
+	{
+		description : [
+			"Stars are shining colder"
+		],
+		modes : [[0, new Modes.GeneralMode(Level.starInScreenAmount) ]],
+		kStarToShipDrainProportion : .1
+	},
+	{
+		description : [
+			"New galaxy brings new pain"
+		],
+		modes : [[0, new Modes.GeneralMode(Level.starInScreenAmount) ]],
+		kStarToShipDrainProportion : .05
+	},
+	{
+		description : [
+			"Your destiny is eternal",
+			"search of the Homeworld"
+		],
+		modes : [[0, new Modes.GeneralMode(Level.starInScreenAmount) ]],
+		kStarToShipDrainProportion : .025
+	}
 ];
 
-Level.current = Level.levels[0];
+Level.getLevel = function(index) {
+	return new Level(Level.levels[Math.min(index, Level.levels.length - 1)], index);
+}
+
+Level.starInScreenAmount = 4;
+
+Level.current = Level.getLevel(0);

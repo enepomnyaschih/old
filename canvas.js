@@ -3,10 +3,8 @@
 	el      : null,  // jQuery element
 	context : null,  // CanvasContext2D
 	
-	init: function(world)
+	init: function()
 	{
-		this.world = world;
-		
 		this.el = $('<canvas width="' + Level.current.screenSize + '" height="' + Level.current.screenSize + '" />');
 		this.context = this.el[0].getContext("2d");
 	},
@@ -56,7 +54,7 @@
 			this.context.textAlign = "center";
 			this.drawText("Congratulation!", 300, 200, "white");
 			this.drawText("You are on the top of Color EVOLUTION", 300, 230, "white");
-			this.drawText("Press Space or click to try again", 300, 440, "gray");
+			this.drawText("Press Space or click to start next level", 300, 440, "gray");
 		}
 	},
 	
@@ -279,10 +277,21 @@
 	{
 		this.context.font = "20pt sans-serif";
 		this.context.textAlign = "center";
-		this.drawText("Fly closely to the stars and", 300, 220, "#0F0");
-		this.drawText("consume their power to improve", 300, 250, "#0F0");
-		this.drawText("your starship. Save energy", 300, 280, "#0F0");
-		this.drawText("Press Space or click to start", 300, 340, "#0F0");
+		
+		var level = Level.current;
+		level.description.each(function(str, index) {
+			this.drawText(str, 300, 310 - 30 * (level.description.length - index), "#0F0");
+		}, this);
+		this.drawText("Level " + (Level.current.index + 1), 300, 330, "#0F0");
+		this.drawText("Press Space or click to start", 300, 380, "#0F0");
+	},
+	
+	showPaused: function()
+	{
+		this.context.font = "20pt sans-serif";
+		this.context.textAlign = "center";
+		this.drawText("Paused", 300, 270, "#FF0");
+		this.drawText("Press Space or click to continue", 300, 340, "#FF0");
 	},
 	
 	createRadialGradient: function(a, b)

@@ -2,27 +2,44 @@
 	world  : null,  // World
 	canvas : null,  // Canvas
 	timer  : false, // Integer
+	nLevel : 0,
 	
 	init: function()
 	{
-		this.world = new World();
-		this.canvas = new Canvas(this.world);
+		this.canvas = new Canvas();
 		
 		$("body").append(this.canvas.el);
 		$("body").keydown(this._onKeyDown.inScope(this));
 		$("body").keyup(this._onKeyUp.inScope(this));
 		
-		this.canvas.draw();
-		this.canvas.showStart();
-		
 		this._clickHandler = this._onClick.inScope(this);
 		this.canvas.el.bind("click", this._clickHandler);
+		
+		this.restart();
+	},
+	
+	restart: function()
+	{
+		this.stop();
+		this.world = new World();
+		this.canvas.world = this.world;
+		this.canvas.draw();
+		this.canvas.showStart();
+	},
+	
+	nextLevel: function()
+	{
+		Level.current = Level.getLevel(Level.current.index + 1);
+		this.restart();
 	},
 	
 	start: function()
 	{
-		if (this.world.ship.deadTime || this.world.ship.isWinner)
-			location.reload();
+		if (this.world.ship.isWinner)
+			return this.nextLevel();
+		
+		if (this.world.ship.deadTime)
+			return this.restart();
 		
 		if (this.timer)
 			return;
@@ -32,6 +49,7 @@
 	
 	stop: function()
 	{
+		this.canvas.showPaused();
 		clearInterval(this.timer);
 		delete this.timer;
 	},
@@ -51,7 +69,11 @@
 	{
 		if (event.which == 32)
 		{
-			this.start();
+			if (this.timer && !this.world.ship.deadTime && !this.world.ship.isWinner)
+				this.stop();
+			else
+				this.start();
+			
 			event.preventDefault();
 			return;
 		}
