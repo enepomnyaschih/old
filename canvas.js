@@ -82,18 +82,26 @@
 		
 		//this.drawDrainingRay({ y1 : -Math.PI / 16, y2 : -Math.PI / 25, star: new World.Star(0, 0, new World.Features(1, 0, 0)), s: 80 });
 		
-		if (this.world.gravity)
-			this.world.gravity.drainingStars.each(this.drawDrainingRay, this);
+		if (this.world.lastGravity)
+		{
+			console.log(this.world.lastGravity.drainingStars.length);
+			this.world.lastGravity.drainingStars.each(this.drawDrainingStar, this);
+		}
 		
 		this.context.restore();
 	},
 	
-	drawDrainingRay: function(drainingStar)
+	drawDrainingStar: function(drainingStar)
+	{
+		drainingStar.angles.each(function(angles) { this.drawDrainingRay(drainingStar, angles); }, this);
+	},
+	
+	drawDrainingRay: function(drainingStar, angles)
 	{
 		var maxRayLength = 7 * Level.current.starMaxRadius;
 		
 		this.context.beginPath();
-		this.context.arc(0, 0, drainingStar.s / maxRayLength, drainingStar.y1, drainingStar.y2);
+		this.context.arc(0, 0, drainingStar.s / maxRayLength, angles[0], angles[1]);
 		this.context.lineTo(0, 0);
 		this.context.closePath();
 		
@@ -104,8 +112,8 @@
 		this.context.fill();
 		
 		this.context.beginPath();
-		this.context.arc(0, 0, drainingStar.s / maxRayLength, drainingStar.y1, drainingStar.y2);
-		this.context.arc(0, 0, maxRayLength, drainingStar.y2, drainingStar.y1, true);
+		this.context.arc(0, 0, drainingStar.s / maxRayLength, angles[0], angles[1]);
+		this.context.arc(0, 0, maxRayLength, angles[1], angles[0], true);
 		this.context.closePath();
 		
 		this.context.fillStyle = this.createRadialGradient("rgba(0, 0, 0, 1)", "rgba(0, 0, 0, 0)");
