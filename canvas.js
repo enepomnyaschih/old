@@ -61,7 +61,7 @@
 		else
 		{
 			if (this.world.ship.features.fuel <= 0)
-				this.drawText("Out of fuel!", 300, 400, "#00F");
+				this.drawText("Out of energy!", 300, 400, "#00F");
 			
 			if (this.world.monster)
 			{
@@ -73,7 +73,7 @@
 	
 	drawRay: function()
 	{
-		if (this.world.ship.deadTime)
+		if (this.world.ship.deadTime || this.world.ship.isWinner)
 			return;
 		
 		this.context.save();
