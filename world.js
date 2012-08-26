@@ -31,11 +31,11 @@
 
         this.eachScreenIndex(screenCol, screenRow, function(col, row)
         {
-            this.generateScreen(col, row);
+            this.generateScreen(col, row, x, y);
         });
     },
 
-    generateScreen : function (screenCol, screenRow)
+    generateScreen : function (screenCol, screenRow, shipX, shipY)
     {
         if (this.screens[screenCol] == null)
         {
@@ -46,7 +46,7 @@
         {
             this.checkMode();
 
-            this.screens[screenCol][screenRow] = this.mode.generateScreen(screenCol, screenRow);
+            this.screens[screenCol][screenRow] = this.mode.generateScreen(screenCol, screenRow, shipX, shipY);
             this.screenAmount++;
         }
     },
