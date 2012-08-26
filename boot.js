@@ -1,8 +1,9 @@
 ﻿var application;
 
 var images = {
-	"bg"   : "images/bg.png",
-	"ship" : "images/shipForeground.png"
+	"bg"      : "images/bg.png",
+	"ship"    : "images/shipForeground.png",
+	"monster" : "images/monster.png"
 };
 
 var soundsToLoad = {
