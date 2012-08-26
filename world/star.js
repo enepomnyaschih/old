@@ -38,7 +38,7 @@
         gravity.accelerationY += acceleration * (this.y - y) / s;
 
         if (s <= Level.current.starMaxRadius  * 7) {
-            var angleStar = Math.atan2(this.y - y, this.x - x);
+            var angleStar = JW.mod(Math.atan2(this.y - y, this.x - x), Math.PI * 2);
             var dAngleStar = Math.asin(this.radius / s);
             var angleStar1 = JW.mod(angleStar - dAngleStar, Math.PI * 2);
             var angleStar2 = JW.mod(angleStar + dAngleStar, Math.PI * 2);
@@ -46,26 +46,26 @@
             var angleShip1 = JW.mod(ship.angle - ship.getRayAngle(), Math.PI * 2);
             var angleShip2 = JW.mod(ship.angle + ship.getRayAngle(), Math.PI * 2);
 
-            if (Math.abs(angleStar - ship.angle) < ship.getRayAngle() ||
-                Math.abs(Math.PI * 2 + angleStar - ship.angle) < ship.getRayAngle() ||
-                Math.abs(-Math.PI * 2 + angleStar - ship.angle) < ship.getRayAngle()
-                )
-            {
-                if  (angleStar1 < angleShip1 && angleStar2 > angleShip1)
-                    angleStar1 = angleShip1;
-                if  (angleStar2 > angleShip2 && angleStar1 < angleShip2)
-                    angleStar2 = angleShip2;
+            var resultAngles = [];
+            var result1 = Util.intersectionLength(angleShip1, angleShip2, angleStar1, angleStar2);
+            if (result1 != null)
+                resultAngles.push(result1);
+            var result2 = Util.intersectionLength(2 * Math.PI + angleShip1, 2 * Math.PI + angleShip2, angleStar1, angleStar2);
+            if (result2 != null)
+                resultAngles.push(result2);
+            var result3 = Util.intersectionLength(-2 * Math.PI + angleShip1, -2 * Math.PI + angleShip2, angleStar1, angleStar2);
+            if (result3 != null)
+                resultAngles.push(result3);
+
+            var sumStarAngle = 0;
+            for (var i = 0; i < resultAngles.length; i++) {
+                sumStarAngle += (resultAngles[i][1] - resultAngles[i][0]);
             }
 
-            var drainingStar = new World.DrainingStar(angleStar1, angleStar2, s, this);
-            var realStarAngle = 0;
-            if (angleStar2 > angleStar1)
-                realStarAngle = angleStar2 - angleStar1;
-            else
-                realStarAngle = Math.PI * 2 + angleStar2 - angleStar1;
-
+            var drainingStar = new World.DrainingStar(resultAngles, s, this);
+            gravity.drainingStars.push(drainingStar);
             //var absoluteDrain = ddt * Level.current.kStarDrain * Math.max(0, 1 - s / (Level.current.drainRadiusPerWeight * this.getWeight()));
-            var absoluteDrain = ddt * Level.current.kStarDrain * realStarAngle;
+            var absoluteDrain = ddt * Level.current.kStarDrain * sumStarAngle;
             gravity.features.changeFuel(this.features.fuel * absoluteDrain * Level.current.kStarToShipDrainProportion * (1 + ship.features.batteryPower) * Level.current.kBatteryPower);
             this.features.changeFuel(-this.features.fuel * absoluteDrain);
 

@@ -61,20 +61,25 @@
 		return "rgba(" + Math.floor(rgb[0]) + ", " + Math.floor(rgb[1]) + ", " + Math.floor(rgb[2]) + ", " + a + ")";
 	},
 
-    angleByProjections : function(xProjection, yProjection) {
-        if (xProjection == 0 && yProjection >= 0)
-            return Math.PI/2;
+    intersectionLength : function (segment1x1, segment1x2, segment2x1, segment2x2)
+    {
+        if (segment1x1 >= segment2x1 && segment1x1 <= segment2x2) {
+            return [segment1x1, Math.min(segment1x2, segment2x2)];
+        }
 
-        if (xProjection == 0 && yProjection < 0)
-            return Math.PI * 3 / 2;
+        if (segment1x2 >= segment2x1 && segment1x2 <= segment2x2) {
+            return [Math.max(segment1x1, segment2x1), segment1x2];
+        }
 
-        if (yProjection == 0 && xProjection >= 0)
-            return 0;
+        if (segment2x1 >= segment1x1 && segment2x1 <= segment1x2) {
+            return [segment2x1, segment2x2];
+        }
 
-        if (yProjection == 0 && xProjection < 0)
-            return Math.PI;
+        return null;
 
-        return Math.atan(yProjection / xProjection);
+        //var min = return Math.min(segment2x1 - segment1x1, segment2x1 - segment1x1, segment2x1 - segment1x1, segment2x1 - segment1x1);
+
+
 
     }
 };
