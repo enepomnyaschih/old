@@ -48,6 +48,15 @@
 			this.drawText("has been lost", 300, 280, "red");
 			this.drawText("Press Space or click to try again", 300, 340, "red");
 		}
+
+		if (this.world.ship.isWinner)
+		{
+			this.context.font = "20pt sans-serif";
+			this.context.textAlign = "center";
+			this.drawText("Congratulation!", 300, 200, "white");
+			this.drawText("You are on the top of Color EVOLUTION", 300, 230, "white");
+			this.drawText("Press Space or click to try again", 300, 440, "gray");
+		}
 	},
 	
 	drawTrail: function(trail)

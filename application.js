@@ -21,7 +21,7 @@
 	
 	start: function()
 	{
-		if (this.world.ship.deadTime)
+		if (this.world.ship.deadTime || this.world.ship.isWinner)
 			location.reload();
 		
 		if (this.timer)

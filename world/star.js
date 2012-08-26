@@ -53,5 +53,5 @@ World.Star.maxFeaturesSum = 1.0;
 World.Star.maxRadius = 20;
 World.Star.drainRadiusPerWeight = .8;
 World.Star.kDrain = .1;
-World.Star.kStarToShipDrainProportion = .03;
+World.Star.kStarToShipDrainProportion = 3;
 World.Star.kBatteryPower = 3;

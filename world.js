@@ -70,13 +70,20 @@
 
     generateNextState : function()
     {
-		if (this.ship.deadTime || this.ship.winFlag)
+		if (this.ship.deadTime)
 		{
 			++this.ship.deadTime;
 			this.ship.x += this.ship.speedX;
 			this.ship.y += this.ship.speedY;
             this.generateScreens(this.ship.x, this.ship.y);
 		}
+
+        if(this.ship.isWinner)
+        {
+            this.ship.x += this.ship.speedX;
+            this.ship.y += this.ship.speedY;
+            this.generateScreens(this.ship.x, this.ship.y);            
+        }
 
         this.moveShip();
 		
@@ -87,7 +94,7 @@
 	moveShip: function()
 	{
         var ship = this.ship;
-		if (ship.deadTime || ship.winFlag)
+		if (ship.deadTime || ship.isWinner)
 			return;
 		
         var x = ship.x;
@@ -163,7 +170,6 @@
             ship.speedY = World.maxSpeed * ship.speedY / speedModule;
         }
 
-
         if (gravity.isExploded) {
             ship.deadTime = 1;
 			ship.deadX = ship.x;
@@ -174,15 +180,17 @@
 			ship.speedY /= s;
         }
 
+        // check if the ship is a winner.
         if (ship.features.fuel >= 1 
             && ship.features.batteryPower >= 1 
             && ship.features.enginePower >= 1)
         {
-            ship.winFlag = true;
+            ship.isWinner = true;
             ship.speedX = 100;
-            ship.speedY = 100;
+            ship.speedY = 0;
+            ship.angle = 0;
         }
-		
+
 		this.trails.push(new World.Trail(this.ship.x, this.ship.y));
     },
 	
@@ -213,7 +221,7 @@ World.kEnginePower = .2;
 
 World.kRotate = .2;
 
-World.kGravity = .5;
+World.kGravity = .05;
 
 World.minimumEnginePower = .25;
 
