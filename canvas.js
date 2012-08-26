@@ -58,9 +58,16 @@
 			this.drawText("You are on the top of Color EVOLUTION", 300, 230, "white");
 			this.drawText("Press Space or click to start next level", 300, 440, "gray");
 		}
-		else if (this.world.ship.features.fuel <= 0)
+		else
 		{
-			this.drawText("Out of fuel!", 300, 400, "#00F");
+			if (this.world.ship.features.fuel <= 0)
+				this.drawText("Out of fuel!", 300, 400, "#00F");
+			
+			if (this.world.monster)
+			{
+				this.drawText("Hurry! Violent monster is", 300, 450, "#F00");
+				this.drawText("hunger for your soul!", 300, 480, "#F00");
+			}
 		}
 	},
 	
