@@ -21,9 +21,9 @@
 	},
 
     /// calculate gravity from every star in the screen.
-    calculateGravity : function(x, y, batteryPower, gravity)
+    calculateGravity : function(x, y, batteryPower, ddt, gravity)
     {
-        this.stars.eachByMethod("calculateGravity", [x, y, batteryPower, gravity]);
+        this.stars.eachByMethod("calculateGravity", [x, y, batteryPower, ddt, gravity]);
     }
 });
 

@@ -96,22 +96,19 @@
         var speedX = ship.speedX;
         var speedY = ship.speedY;
 
-        var ddt = World.dt / 1;
+        var ddt = World.dt / 100;
         var gravity = new World.Gravity();
 
         for (var i = 0; i < World.dt; i+=ddt) {
         // calculate gravity
             this.generateScreens(x, y);
 
-            var accelerationX = 0;
-            var accelerationY = 0;
-
             var screenCol = Math.floor(x / World.Screen.size);
             var screenRow = Math.floor(y / World.Screen.size);
 
             this.eachScreenIndex(screenCol, screenRow, function(col, row)
             {
-                this.screens[col][row].calculateGravity(x, y, ship.features.batteryPower, gravity);
+                this.screens[col][row].calculateGravity(x, y, ship.features.batteryPower, ddt, gravity);
             });
 
             speedX += gravity.accelerationX * ddt;
@@ -200,7 +197,7 @@ World.kEnginePower = .2;
 
 World.kRotate = .2;
 
-World.kGravity = 1;
+World.kGravity = .05;
 
 World.minimumEnginePower = .25;
 
