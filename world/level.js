@@ -41,6 +41,8 @@ var Level = JW.Config.extend({
     }
 });
 
+Level.starInScreenAmount = 4;
+
 Level.levels = [
 	{
 		description : [
@@ -58,7 +60,7 @@ Level.levels = [
 			[35, new Modes.CleanColorMode(Modes.CleanColorMode.typeAllColors, [1, 1, 1], 6 ) ],
 			[50, new Modes.GeneralMode(8) ]
 		],
-		kStarToShipDrainProportion : .4
+		kStarToShipDrainProportion : 4
 	},
 	{
 		description : [
@@ -87,8 +89,6 @@ Level.levels = [
 Level.getLevel = function(index) {
 	return new Level(Level.levels[Math.min(index, Level.levels.length - 1)], index);
 }
-
-Level.starInScreenAmount = 4;
 
 Level.getFirstLevel = function()
 {

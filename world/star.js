@@ -57,8 +57,10 @@
                 sumStarAngle += (resultAngles[i][1] - resultAngles[i][0]);
             }
 
-            var drainingStar = new World.DrainingStar(resultAngles, s, this);
-            interaction.drainingStars.push(drainingStar);
+            if (sumStarAngle) {
+                var drainingStar = new World.DrainingStar(resultAngles, s, this);
+                interaction.drainingStars.push(drainingStar);
+            }
             //var absoluteDrain = ddt * Level.current.kStarDrain * Math.max(0, 1 - s / (Level.current.drainRadiusPerWeight * this.getWeight()));
             var absoluteDrain = Level.current.dt * Level.current.kStarDrain * sumStarAngle;
             interaction.features.changeFuel(this.features.fuel * absoluteDrain * Level.current.kStarToShipDrainProportion * (1 + ship.features.batteryPower) * Level.current.kBatteryPower);
