@@ -9,6 +9,7 @@
     features    : null, // World.Features
 	deadTime    : 0,  // if 0 - alive
     isWinner    : false, // no comments
+    isEaten     : false, // is eaten by monster.
 
     engineUp    : false, // modify according user's control
     engineDown  : false, // modify according user's control
@@ -16,7 +17,7 @@
     engineRight : false, // modify according user's control
 
     init: function() {
-        this.features = new World.Features(0,0,.2);
+        this.features = new World.Features(0.8,0.8,.2);
     },
 
 	getScreenCol: function()

@@ -171,7 +171,15 @@
             ship.speedY = Level.current.maxSpeed * ship.speedY / speedModule;
         }
 
-        if (interaction.isExploded) {
+        if (this.monster == null && this.ship.features.enginePower > 0.7 && this.ship.features.batteryPower > 0.7) {
+            this.monster = new World.Monster(this.ship.x - 1000, this.ship.y);
+        }
+
+
+        if (this.monster != null)
+            this.monster.move(this.ship);
+
+        if (interaction.isExploded || ship.isEaten) {
             ship.deadTime = 1;
 			ship.deadX = ship.x;
 			ship.deadY = ship.y;
