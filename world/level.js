@@ -92,11 +92,35 @@ Level.levels = [
 	},
 	{
 		description : [
+			"Pray and hope"
+		],
+		modes : [
+			[0, new Modes.CleanColorMode(Modes.CleanColorMode.typeAllColors, [1, 1, 1], 4 ) ],
+			[9, new Modes.CleanColorMode(Modes.CleanColorMode.typeAllColors, [1, 1, 1], 6 ) ],
+			[20, new Modes.CleanColorMode(Modes.CleanColorMode.typeAllColors, [1, 1, 1], 10 ) ],
+			[30, new Modes.GeneralMode(10) ]
+		],
+		kStarToShipDrainProportion : .5
+	},
+	{
+		description : [
+			"The Homeworld exists. Somewhere"
+		],
+		modes : [
+			[0, new Modes.CleanColorMode(Modes.CleanColorMode.typeAllColors, [1, 1, 1], 4 ) ],
+			[9, new Modes.CleanColorMode(Modes.CleanColorMode.typeAllColors, [1, 1, 1], 6 ) ],
+			[20, new Modes.CleanColorMode(Modes.CleanColorMode.typeAllColors, [1, 1, 1], 10 ) ],
+			[30, new Modes.GeneralMode(10) ]
+		],
+		kStarToShipDrainProportion : .38
+	},
+	{
+		description : [
 			"Your destiny is eternal",
 			"search of the Homeworld"
 		],
-		modes : [[0, new Modes.GeneralMode(12) ]],
-		kStarToShipDrainProportion : .6
+		modes : [[0, new Modes.GeneralMode(8) ]],
+		kStarToShipDrainProportion : .35
 	}
 ];
 
