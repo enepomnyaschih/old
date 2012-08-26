@@ -6,6 +6,7 @@
 	screenAmount : 0,
     mode         : null,
     createdModes : null,
+    lastGravity  : null,
 
 	init: function()
 	{
@@ -179,6 +180,8 @@
 			ship.speedX /= s;
 			ship.speedY /= s;
         }
+
+        this.lastGravity = gravity;
 
         // check if the ship is a winner.
         if (ship.features.fuel >= 1 
