@@ -16,7 +16,7 @@
     engineRight : false, // modify according user's control
 
     init: function() {
-        this.features = new World.Features(0,0,1);
+        this.features = new World.Features(0,0,.2);
     },
 
 	getScreenCol: function()
