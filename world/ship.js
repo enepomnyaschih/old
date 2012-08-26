@@ -9,6 +9,7 @@
     features    : null, // World.Features
 	deadTime    : 0,  // if 0 - alive
     isWinner    : false, // no comments
+    isEaten     : false, // is eaten by monster.
 
     engineUp    : false, // modify according user's control
     engineDown  : false, // modify according user's control
