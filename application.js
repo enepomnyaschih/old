@@ -30,6 +30,7 @@
 	nextLevel: function()
 	{
 		Level.current = Level.getLevel(Level.current.index + 1);
+		$.cookie("level", Level.current.index);
 		this.restart();
 	},
 	

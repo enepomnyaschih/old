@@ -90,4 +90,10 @@ Level.getLevel = function(index) {
 
 Level.starInScreenAmount = 4;
 
-Level.current = Level.getLevel(0);
+Level.getFirstLevel = function()
+{
+	var level = parseInt($.cookie("level"));
+	return (isNaN(level) || level < 0) ? 0 : level;
+}
+
+Level.current = Level.getLevel(Level.getFirstLevel());
