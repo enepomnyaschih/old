@@ -7,6 +7,7 @@
     mode         : null,
     createdModes : null,
     lastInteraction  : null,
+    monster         : null,
 
 	init: function()
 	{
