@@ -6,10 +6,18 @@
 
     features    : null, // World.Features
 
-    init:function(screenX, screenY, features)
+    init:function(screenX, screenY, features, shipX, shipY)
     {
-        this.x = screenX + Util.random(Level.current.screenSize);
-        this.y = screenY + Util.random(Level.current.screenSize);
+        var minLen2 = Level.current.screenSize * Level.current.screenSize / 5;
+        do
+        {
+            this.x = screenX + Util.random(Level.current.screenSize);
+            this.y = screenY + Util.random(Level.current.screenSize);
+            var dx = this.x - shipX;
+            var dy = this.y - shipY;
+            var len2 = dx*dx + dy*dy;
+        }
+        while(len2 < minLen2);
 
         this.radius = Util.random(Level.current.starMaxRadius  * 3/4) + 1/4 * Level.current.starMaxRadius ;
         this.blur = Util.random(Math.PI);

@@ -31,7 +31,7 @@
     }
 });
 
-World.Screen.getX0Y0 = function (col, row)
+World.Screen.getX0Y0 = function (col, row, shipX, shipY)
 {
     return [col * Level.current.screenSize, row * Level.current.screenSize];
 }

@@ -84,8 +84,5 @@
         return null;
 
         //var min = return Math.min(segment2x1 - segment1x1, segment2x1 - segment1x1, segment2x1 - segment1x1, segment2x1 - segment1x1);
-
-
-
     }
 };
