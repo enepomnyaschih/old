@@ -9,3 +9,10 @@
 	overflow: hidden;
 }
 
+#musicbox
+{
+	position: absolute;
+	left: 620px;
+	top: 20px;
+}
+

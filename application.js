@@ -8,9 +8,10 @@
 	{
 		this.canvas = new Canvas();
 		
-		$("body").append(this.canvas.el);
+		$("#game").append(this.canvas.el);
 		$("body").keydown(this._onKeyDown.inScope(this));
 		$("body").keyup(this._onKeyUp.inScope(this));
+		$("#musicinput").change(this._onMusicChange.inScope(this));
 		
 		this._clickHandler = this._onClick.inScope(this);
 		this.canvas.el.bind("click", this._clickHandler);
@@ -109,5 +110,13 @@
 		}
 		
 		event.preventDefault();
+	},
+	
+	_onMusicChange: function()
+	{
+		if ($("#musicinput").prop("checked"))
+			playlist.next();
+		else
+			playlist.stop();
 	}
 });

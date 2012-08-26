@@ -32,6 +32,19 @@ var tracks = {
 	})
 };
 
+var playlist = new JW.Audio.Playlist({
+	tracks : [
+		new JW.Audio.Track({
+			mp3 : "music/1.mp3",
+			ogg : "music/1.ogg"
+		}),
+		new JW.Audio.Track({
+			mp3 : "music/2.mp3",
+			ogg : "music/2.ogg"
+		})
+	]
+});
+
 $(function() {
 	Util.preloadImages(images, function(result) {
 		images = result;
