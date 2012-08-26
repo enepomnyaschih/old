@@ -23,7 +23,7 @@
 
     calculateGravity : function(x, y, batteryPower, ddt, gravity)
     {
-		this.blur += .05;
+		this.blur += .05 * ddt;
         var s = Math.sqrt(Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2));
         if (s < this.radius)
 		{
