@@ -163,7 +163,6 @@
             ship.speedY = World.maxSpeed * ship.speedY / speedModule;
         }
 
-
         if (gravity.isExploded) {
             ship.deadTime = 1;
 			ship.deadX = ship.x;
@@ -173,7 +172,11 @@
 			ship.speedX /= s;
 			ship.speedY /= s;
         }
-		
+
+        // check if the ship is a winner.
+        if (ship.features.fuel == 1 && ship.features.enginePower == 1 && ship.features.batteryPower == 1)
+            ship.isWinner = true;
+
 		this.trails.push(new World.Trail(this.ship.x, this.ship.y));
     },
 	
