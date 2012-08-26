@@ -14,7 +14,8 @@
 		this.screens = {};
 		this.trails = [];
 		this.smokes = [];
-        this.mode = new Modes.BlueMode();
+        //this.mode = new Modes.BlueMode(2);
+        this.mode = new Modes.CleanColorMode(Modes.CleanColorMode.typeOneColor, new World.Features(1, 0, 1));
         this.createdModes = {
             blue       : true,
             general    : false,
@@ -52,21 +53,7 @@
 
     checkMode : function ()
     {
-        if(this.screenAmount <= 9)
-        {
-            return;
-        }
-        if(this.screenAmount > 9)
-        {
-            if(!this.createdModes.general)
-            {
-                this.mode = new Modes.GeneralMode();
-                this.createdModes.general = true;
-            }
-        }
-        else if(false)
-        {
-        }
+        this.mode = Level.current.getCurrentMode(this.screenAmount);
     },
 
     generateNextState : function()
