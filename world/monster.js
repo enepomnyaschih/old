@@ -17,7 +17,7 @@ World.Monster = Class.extend({
 		}
 		
         this.angle = JW.mod(Math.atan2(ship.y - this.y, ship.x - this.x), 2 * Math.PI);
-        var speed = Level.current.maxSpeed * ((s > 1000) ? .6 : .2);
+        var speed = Level.current.maxSpeed * ((s > 600) ? 1.2 : .2);
         this.x += Math.cos(this.angle) * speed * Level.current.dt;
         this.y += Math.sin(this.angle) * speed * Level.current.dt;
     }
