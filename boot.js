@@ -5,9 +5,23 @@ var images = {
 	"ship" : "images/shipForeground.png"
 };
 
+var soundsToLoad = {
+	"exp1" : "sounds/exp.mp3",
+	"exp2" : "sounds/exp.ogg"
+};
+
+var tracks = {
+	"exp" : new JW.Audio.Track({
+		mp3 : "sounds/exp.mp3",
+		ogg : "sounds/exp.ogg"
+	})
+};
+
 $(function() {
 	Util.preloadImages(images, function(result) {
 		images = result;
-		application = new Application();
+		Util.preloadImages(soundsToLoad, function() {
+			application = new Application();
+		});
 	});
 });

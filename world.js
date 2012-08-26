@@ -176,6 +176,8 @@
 			var s = Math.sqrt(ship.speedX * ship.speedX + ship.speedY * ship.speedY);
 			ship.speedX /= s;
 			ship.speedY /= s;
+			
+			tracks.exp.play();
         }
 
         this.lastInteraction = interaction;
