@@ -67,6 +67,6 @@
 
     getRayAngle : function()
     {
-        return Math.PI/4;
+		return Math.PI / 7 + (Math.PI / 4) * this.features.batteryPower;
     }
 });

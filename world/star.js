@@ -71,7 +71,7 @@
             }
             //var absoluteDrain = ddt * Level.current.kStarDrain * Math.max(0, 1 - s / (Level.current.drainRadiusPerWeight * this.getWeight()));
             var absoluteDrain = Level.current.dt * Level.current.kStarDrain * sumStarAngle;
-            interaction.features.changeFuel(this.features.fuel * absoluteDrain * Level.current.kStarToShipDrainProportion * (1 + ship.features.batteryPower) * Level.current.kBatteryPower);
+            interaction.features.changeFuel(this.features.fuel * absoluteDrain * Level.current.kStarToShipDrainProportion * Level.current.kBatteryPower);
             this.features.changeFuel(-this.features.fuel * absoluteDrain);
 
             interaction.features.changeBatteryPower(this.features.batteryPower * absoluteDrain * Level.current.kStarToShipDrainProportion);

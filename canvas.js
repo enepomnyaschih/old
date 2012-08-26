@@ -278,7 +278,7 @@
 	drawIndicators: function()
 	{
         this.drawIndicator("Engine",    this.world.ship.features.enginePower, "#ff0000",   0);
-        this.drawIndicator("Generator", this.world.ship.features.batteryPower, "#00ff00", 200);
+        this.drawIndicator("Capture Ray", this.world.ship.features.batteryPower, "#00ff00", 200);
         this.drawIndicator("Energy",    this.world.ship.features.fuel,        "#0000ff",  400);
     },
 	
