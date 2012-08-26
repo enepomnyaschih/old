@@ -24,8 +24,8 @@
 	
     generateScreens : function (x, y)
     {
-        var screenCol = Math.floor(x / World.Screen.size);
-        var screenRow = Math.floor(y / World.Screen.size);
+        var screenCol = Math.floor(x / World.screenSize);
+        var screenRow = Math.floor(y / World.screenSize);
 
         this.eachScreenIndex(screenCol, screenRow, function(col, row)
         {
@@ -80,7 +80,7 @@
 		
 		this.moveShip();
 		
-		this.trails = this.trails.filter(function(trail) { return ++trail.time <= World.Trail.lifeTime; });
+		this.trails = this.trails.filter(function(trail) { return ++trail.time <= World.trailLifeTime; });
 		this.smokes = this.smokes.filter(function(smoke) { return ++smoke.time <= World.Smoke.lifeTime; });
 	},
 	
@@ -103,8 +103,8 @@
         // calculate gravity
             this.generateScreens(x, y);
 
-            var screenCol = Math.floor(x / World.Screen.size);
-            var screenRow = Math.floor(y / World.Screen.size);
+            var screenCol = Math.floor(x / World.screenSize);
+            var screenRow = Math.floor(y / World.screenSize);
 
             this.eachScreenIndex(screenCol, screenRow, function(col, row)
             {
@@ -202,15 +202,17 @@
 });
 
 World.dt = 1;
-
 World.kEnginePower = .2;
-
 World.kRotate = .2;
-
 World.kGravity = .05;
-
 World.minimumEnginePower = .25;
-
 World.dFuel = .02;
-
 World.maxSpeed = 15;
+World.starMaxRadius = 20;
+World.drainRadiusPerWeight = .8;
+World.kStarDrain = .1;
+World.kStarToShipDrainProportion = .03;
+World.kBatteryPower = 3;
+World.trailLifeTime = 80;
+World.screenSize = 600;
+World.starInScreenAmount = 6;

@@ -8,10 +8,10 @@
 
     init:function(screenX, screenY, features)
     {
-        this.x = screenX + Util.random(World.Screen.size);
-        this.y = screenY + Util.random(World.Screen.size);
+        this.x = screenX + Util.random(World.screenSize);
+        this.y = screenY + Util.random(World.screenSize);
 
-        this.radius = Util.random(World.Star.maxRadius * 3/4) + 1/4 * World.Star.maxRadius;
+        this.radius = Util.random(World.starMaxRadius * 3/4) + 1/4 * World.starMaxRadius;
         this.blur = Util.random(Math.PI);
         this.features = features;
     },
@@ -35,23 +35,17 @@
         gravity.accelerationX += acceleration * (this.x - x) / s;
         gravity.accelerationY += acceleration * (this.y - y) / s;
 
-        if (s <= World.Star.maxRadius * 7) {
-            var absoluteDrain = ddt * World.Star.kDrain * Math.max(0, 1 - s / (World.Star.drainRadiusPerWeight * this.getWeight()));
-            gravity.features.changeFuel(this.features.fuel * absoluteDrain * World.Star.kStarToShipDrainProportion * (1 + batteryPower) * World.Star.kBatteryPower);
+        if (s <= World.starMaxRadius * 7) {
+            var absoluteDrain = ddt * World.kStarDrain * Math.max(0, 1 - s / (World.drainRadiusPerWeight * this.getWeight()));
+            gravity.features.changeFuel(this.features.fuel * absoluteDrain * World.kStarToShipDrainProportion * (1 + batteryPower) * World.kBatteryPower);
             this.features.changeFuel(-this.features.fuel * absoluteDrain);
 
-            gravity.features.changeBatteryPower(this.features.batteryPower * absoluteDrain * World.Star.kStarToShipDrainProportion);
+            gravity.features.changeBatteryPower(this.features.batteryPower * absoluteDrain * World.kStarToShipDrainProportion);
             this.features.changeBatteryPower(-this.features.batteryPower * absoluteDrain);
 
-            gravity.features.changeEnginePower(this.features.enginePower * absoluteDrain * World.Star.kStarToShipDrainProportion);
+            gravity.features.changeEnginePower(this.features.enginePower * absoluteDrain * World.kStarToShipDrainProportion);
             this.features.changeEnginePower(-this.features.enginePower * absoluteDrain);
         }
     }
 });
 
-World.Star.maxFeaturesSum = 1.0;
-World.Star.maxRadius = 20;
-World.Star.drainRadiusPerWeight = .8;
-World.Star.kDrain = .1;
-World.Star.kStarToShipDrainProportion = .03;
-World.Star.kBatteryPower = 3;

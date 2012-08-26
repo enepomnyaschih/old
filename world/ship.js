@@ -21,12 +21,12 @@
 
 	getScreenCol: function()
 	{
-		return Math.floor(this.x / World.Screen.size);
+		return Math.floor(this.x / World.screenSize);
 	},
 	
 	getScreenRow: function()
 	{
-		return Math.floor(this.y / World.Screen.size);
+		return Math.floor(this.y / World.screenSize);
 	},
 	
 	createSmokes: function( // Array of World.Smoke
