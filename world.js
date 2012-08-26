@@ -156,7 +156,14 @@
 
         ship.speedX += dSpeed * Math.cos(ship.angle) + gravity.accelerationX;
         ship.speedY += dSpeed * Math.sin(ship.angle) + gravity.accelerationY;
-		
+
+        var speedModule = Math.sqrt((Math.pow(ship.speedX, 2) + Math.pow(ship.speedY, 2)));
+        if (speedModule > World.maxSpeed) {
+            ship.speedX = World.maxSpeed * ship.speedX / speedModule;
+            ship.speedY = World.maxSpeed * ship.speedY / speedModule;
+        }
+
+
         if (gravity.isExploded) {
             ship.deadTime = 1;
 			ship.deadX = ship.x;
@@ -202,3 +209,5 @@ World.kGravity = .05;
 World.minimumEnginePower = .25;
 
 World.dFuel = .02;
+
+World.maxSpeed = 15;
