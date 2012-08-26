@@ -13,7 +13,7 @@ var Level = Class.extend({
     kBatteryPower : 3,
     trailLifeTime : 80,
     screenSize : 600,
-    starInScreenAmount : 6,
+    starInScreenAmount : 4,
 
     init : function(kStarToShipDrainProportion) {
         this.kStarToShipDrainProportion = kStarToShipDrainProportion;

@@ -13,7 +13,8 @@
 		this.screens = {};
 		this.trails = [];
 		this.smokes = [];
-        this.mode = new Modes.BlueMode();
+        //this.mode = new Modes.BlueMode(2);
+        this.mode = new Modes.CleanColorMode(Modes.CleanColorMode.typeOneColor, new World.Features(0, 0, 1));
         this.createdModes = {
             blue       : true,
             general    : false,
@@ -59,7 +60,7 @@
         {
             if(!this.createdModes.general)
             {
-                this.mode = new Modes.GeneralMode();
+                this.mode = new Modes.GeneralMode(Level.current.starInScreenAmount);
                 this.createdModes.general = true;
             }
         }
