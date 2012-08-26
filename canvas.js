@@ -250,9 +250,7 @@
 		this.context.fillStyle = JW.Color.str(this.getFeaturesRgb(this.world.ship.features, 0.1));
 		
 		this.context.beginPath();
-		this.context.moveTo( 10,  0);
-		this.context.lineTo(-10,  8);
-		this.context.lineTo(-10, -8);
+		this.context.arc(0, 0, 6, 0, 2 * Math.PI);
 		this.context.closePath();
 		
 		this.context.fill();
@@ -269,8 +267,8 @@
 		
 		this.context.save();
 		
-		this.context.translate(monster.x, monster.y);
-		this.context.rotate(monster.angle);
+		this.context.translate(this.world.monster.x, this.world.monster.y);
+		this.context.rotate(this.world.monster.angle);
 		
 		this.context.drawImage(images.monster[0], -40, -40);
 		
