@@ -38,6 +38,7 @@
 		this.context.restore();
 		
 		this.drawIndicators();
+		this.drawLevel();
 		
 		if (this.world.ship.deadTime > 30)
 		{
@@ -269,7 +270,14 @@
 		this.context.strokeStyle = "white";
 		this.context.strokeRect(x + 100.5, 18.5, 80, 10);
 	},
-	
+
+	drawLevel: function()
+	{
+		this.context.font = "11pt sans-serif";
+		this.context.textAlign = "end";
+		this.drawText("Level " + (Level.current.index + 1), Level.current.screenSize - 30, Level.current.screenSize - 30, 100, 100, "#aaaaaa");
+	},
+
 	drawText: function(text, x, y, color)
 	{
 		this.context.fillStyle = "white";
@@ -305,7 +313,19 @@
 		gradient.addColorStop(0, a);
 		gradient.addColorStop(1, b);
 		return gradient;
-	}
+	},
+	// drawMiniMap : function()
+	// {
+	// 	this.context.beginPath();
+	// 	this.context.moveTo(0, 0);
+	// 	this.context.lineTo(0, 50);
+	// 	this.context.lineTo(50, 50);
+	// 	this.context.arc(0, 0, 2, 0, 2 * Math.PI);
+	// 	this.context.closePath();
+		
+	// 	this.context.fillStyle = gradient;
+	// 	this.context.fill();
+	// }
 });
 
 Canvas.starFullColor  = [  80,  80,  80 ];
