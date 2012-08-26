@@ -15,7 +15,6 @@
 		this.screens = {};
 		this.trails = [];
 		this.smokes = [];
-        //this.mode = new Modes.BlueMode(2);
         this.mode = new Modes.CleanColorMode(Modes.CleanColorMode.typeOneColor, new World.Features(1, 0, 1));
         this.createdModes = {
             blue       : true,

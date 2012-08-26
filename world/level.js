@@ -66,23 +66,37 @@ Level.levels = [
 		description : [
 			"Stars are shining colder"
 		],
-		modes : [[0, new Modes.GeneralMode(Level.starInScreenAmount) ]],
-		kStarToShipDrainProportion : .1
+		modes : [
+			[0,  new Modes.BlueMode(2)],
+			[9,  new Modes.CleanColorMode(Modes.CleanColorMode.typeOneColor, [1, 0, 0], 2) ],
+			[15, new Modes.CleanColorMode(Modes.CleanColorMode.typeOneColor, [0, 1, 0], 2 ) ],
+			[20, new Modes.CleanColorMode(Modes.CleanColorMode.typeOneColor, [0, 1, 1], 3 ) ],
+			[25, new Modes.CleanColorMode(Modes.CleanColorMode.typeOneColor, [1, 0, 1], 3 ) ],
+			[30, new Modes.CleanColorMode(Modes.CleanColorMode.typeOneColor, [1, 1, 0], 4 ) ],
+			[35, new Modes.CleanColorMode(Modes.CleanColorMode.typeAllColors, [1, 1, 1], 6 ) ],
+			[50, new Modes.GeneralMode(8) ]
+		],
+		kStarToShipDrainProportion : 1
 	},
 	{
 		description : [
 			"New galaxy brings new pain"
 		],
-		modes : [[0, new Modes.GeneralMode(Level.starInScreenAmount) ]],
-		kStarToShipDrainProportion : .05
+		modes : [
+			[0, new Modes.CleanColorMode(Modes.CleanColorMode.typeAllColors, [1, 1, 1], 4 ) ],
+			[9, new Modes.CleanColorMode(Modes.CleanColorMode.typeAllColors, [1, 1, 1], 6 ) ],
+			[20, new Modes.CleanColorMode(Modes.CleanColorMode.typeAllColors, [1, 1, 1], 10 ) ],
+			[30, new Modes.GeneralMode(15) ]
+		],
+		kStarToShipDrainProportion : .5
 	},
 	{
 		description : [
 			"Your destiny is eternal",
 			"search of the Homeworld"
 		],
-		modes : [[0, new Modes.GeneralMode(Level.starInScreenAmount) ]],
-		kStarToShipDrainProportion : .025
+		modes : [[0, new Modes.GeneralMode(20) ]],
+		kStarToShipDrainProportion : .1
 	}
 ];
 

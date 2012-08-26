@@ -40,7 +40,7 @@ Modes.CleanColorMode = Class.extend({
 		var srcFeatures = this.features;
 		if(this.modeType == Modes.CleanColorMode.typeAllColors)
 		{
-			srcFeatures = new World.Features(Util.random(1), Util.random(1), Util.random(2));
+			srcFeatures = new World.Features(Util.random(2), Util.random(2), Util.random(2));
 			if(srcFeatures.fuel == 0 && srcFeatures.batteryPower == 0 && srcFeatures.enginePower == 0)
 			{
 				srcFeatures.fuel = 1;
