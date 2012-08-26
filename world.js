@@ -116,7 +116,7 @@
 
             this.eachScreenIndex(screenCol, screenRow, function(col, row)
             {
-                this.screens[col][row].calculateGravity(x, y, ship.features.batteryPower, ddt, gravity);
+                this.screens[col][row].calculateGravity(ship, ddt, gravity);
             });
 
             speedX += gravity.accelerationX * ddt;

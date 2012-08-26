@@ -59,5 +59,22 @@
 	rgbaStr : function(rgb, a)
 	{
 		return "rgba(" + Math.floor(rgb[0]) + ", " + Math.floor(rgb[1]) + ", " + Math.floor(rgb[2]) + ", " + a + ")";
-	}
+	},
+
+    angleByProjections : function(xProjection, yProjection) {
+        if (xProjection == 0 && yProjection >= 0)
+            return Math.PI/2;
+
+        if (xProjection == 0 && yProjection < 0)
+            return Math.PI * 3 / 2;
+
+        if (yProjection == 0 && xProjection >= 0)
+            return 0;
+
+        if (yProjection == 0 && xProjection < 0)
+            return Math.PI;
+
+        return Math.atan(yProjection / xProjection);
+
+    }
 };

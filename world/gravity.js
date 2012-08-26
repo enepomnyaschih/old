@@ -7,5 +7,6 @@ World.Gravity = Class.extend({
 
     init : function() {
         this.features = new World.Features(0, 0, 0);
+        this.drainingStars = [];
     }
 });

@@ -21,8 +21,10 @@
 		return this.radius * this.radius;
 	},
 
-    calculateGravity : function(x, y, batteryPower, ddt, gravity)
+    calculateGravity : function(ship, ddt, gravity)
     {
+        var x = ship.x;
+        var y = ship.y;
 		this.blur += .05 * ddt;
         var s = Math.sqrt(Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2));
         if (s < this.radius)
@@ -36,8 +38,35 @@
         gravity.accelerationY += acceleration * (this.y - y) / s;
 
         if (s <= Level.current.starMaxRadius  * 7) {
-            var absoluteDrain = ddt * Level.current.kStarDrain * Math.max(0, 1 - s / (Level.current.drainRadiusPerWeight * this.getWeight()));
-            gravity.features.changeFuel(this.features.fuel * absoluteDrain * Level.current.kStarToShipDrainProportion * (1 + batteryPower) * Level.current.kBatteryPower);
+            var angleStar = Math.atan2(this.y - y, this.x - x);
+            var dAngleStar = Math.asin(this.radius / s);
+            var angleStar1 = JW.mod(angleStar - dAngleStar, Math.PI * 2);
+            var angleStar2 = JW.mod(angleStar + dAngleStar, Math.PI * 2);
+
+            var angleShip1 = JW.mod(ship.angle - ship.getRayAngle(), Math.PI * 2);
+            var angleShip2 = JW.mod(ship.angle + ship.getRayAngle(), Math.PI * 2);
+
+            if (Math.abs(angleStar - ship.angle) < ship.getRayAngle() ||
+                Math.abs(Math.PI * 2 + angleStar - ship.angle) < ship.getRayAngle() ||
+                Math.abs(-Math.PI * 2 + angleStar - ship.angle) < ship.getRayAngle()
+                )
+            {
+                if  (angleStar1 < angleShip1 && angleStar2 > angleShip1)
+                    angleStar1 = angleShip1;
+                if  (angleStar2 > angleShip2 && angleStar1 < angleShip2)
+                    angleStar2 = angleShip2;
+            }
+
+            var drainingStar = new World.DrainingStar(angleStar1, angleStar2, s, this);
+            var realStarAngle = 0;
+            if (angleStar2 > angleStar1)
+                realStarAngle = angleStar2 - angleStar1;
+            else
+                realStarAngle = Math.PI * 2 + angleStar2 - angleStar1;
+
+            //var absoluteDrain = ddt * Level.current.kStarDrain * Math.max(0, 1 - s / (Level.current.drainRadiusPerWeight * this.getWeight()));
+            var absoluteDrain = ddt * Level.current.kStarDrain * realStarAngle;
+            gravity.features.changeFuel(this.features.fuel * absoluteDrain * Level.current.kStarToShipDrainProportion * (1 + ship.features.batteryPower) * Level.current.kBatteryPower);
             this.features.changeFuel(-this.features.fuel * absoluteDrain);
 
             gravity.features.changeBatteryPower(this.features.batteryPower * absoluteDrain * Level.current.kStarToShipDrainProportion);
