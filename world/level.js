@@ -60,7 +60,7 @@ Level.levels = [
 			[35, new Modes.CleanColorMode(Modes.CleanColorMode.typeAllColors, [1, 1, 1], 6 ) ],
 			[50, new Modes.GeneralMode(8) ]
 		],
-		kStarToShipDrainProportion : 4
+		kStarToShipDrainProportion : 3
 	},
 	{
 		description : [
@@ -86,17 +86,17 @@ Level.levels = [
 			[0, new Modes.CleanColorMode(Modes.CleanColorMode.typeAllColors, [1, 1, 1], 4 ) ],
 			[9, new Modes.CleanColorMode(Modes.CleanColorMode.typeAllColors, [1, 1, 1], 6 ) ],
 			[20, new Modes.CleanColorMode(Modes.CleanColorMode.typeAllColors, [1, 1, 1], 10 ) ],
-			[30, new Modes.GeneralMode(15) ]
+			[30, new Modes.GeneralMode(10) ]
 		],
-		kStarToShipDrainProportion : .5
+		kStarToShipDrainProportion : .75
 	},
 	{
 		description : [
 			"Your destiny is eternal",
 			"search of the Homeworld"
 		],
-		modes : [[0, new Modes.GeneralMode(20) ]],
-		kStarToShipDrainProportion : .1
+		modes : [[0, new Modes.GeneralMode(12) ]],
+		kStarToShipDrainProportion : .6
 	}
 ];
 
