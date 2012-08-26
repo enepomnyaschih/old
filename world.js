@@ -24,8 +24,8 @@
 	
     generateScreens : function (x, y)
     {
-        var screenCol = Math.floor(x / World.screenSize);
-        var screenRow = Math.floor(y / World.screenSize);
+        var screenCol = Math.floor(x / Level.current.screenSize);
+        var screenRow = Math.floor(y / Level.current.screenSize);
 
         this.eachScreenIndex(screenCol, screenRow, function(col, row)
         {
@@ -87,7 +87,7 @@
 
         this.moveShip();
 		
-		this.trails = this.trails.filter(function(trail) { return ++trail.time <= World.trailLifeTime; });
+		this.trails = this.trails.filter(function(trail) { return ++trail.time <= Level.current.trailLifeTime; });
 		this.smokes = this.smokes.filter(function(smoke) { return ++smoke.time <= World.Smoke.lifeTime; });
 	},
 	
@@ -103,15 +103,15 @@
         var speedX = ship.speedX;
         var speedY = ship.speedY;
 
-        var ddt = World.dt / 100;
+        var ddt = Level.current.dt / 100;
         var gravity = new World.Gravity();
 
-        for (var i = 0; i < World.dt; i+=ddt) {
+        for (var i = 0; i < Level.current.dt; i+=ddt) {
         // calculate gravity
             this.generateScreens(x, y);
 
-            var screenCol = Math.floor(x / World.screenSize);
-            var screenRow = Math.floor(y / World.screenSize);
+            var screenCol = Math.floor(x / Level.current.screenSize);
+            var screenRow = Math.floor(y / Level.current.screenSize);
 
             this.eachScreenIndex(screenCol, screenRow, function(col, row)
             {
@@ -130,29 +130,29 @@
 
 
         var dSpeed = 0;
-        var realEnginePower = ship.features.enginePower + World.minimumEnginePower;
-		var dFuel = realEnginePower * World.dFuel;
+        var realEnginePower = ship.features.enginePower + Level.current.minimumEnginePower;
+		var dFuel = realEnginePower * Level.current.dFuel;
 
         if (ship.engineLeft) {
-            ship.angle += World.dt * realEnginePower * World.kRotate;
+            ship.angle += Level.current.dt * realEnginePower * Level.current.kRotate;
         }
         if (ship.engineRight) {
-            ship.angle -= World.dt * realEnginePower * World.kRotate;
+            ship.angle -= Level.current.dt * realEnginePower * Level.current.kRotate;
         }
 
         if (ship.features.fuel > 0 && ship.engineUp) {
             ship.features.changeFuel(-dFuel);
-            dSpeed += World.dt * realEnginePower * World.kEnginePower;
+            dSpeed += Level.current.dt * realEnginePower * Level.current.kEnginePower;
 			this.createSmokes(false);
         }
         if (ship.features.fuel > 0 && ship.engineDown) {
             ship.features.changeFuel(-dFuel);
-            dSpeed -= World.dt * realEnginePower * World.kEnginePower;
+            dSpeed -= Level.current.dt * realEnginePower * Level.current.kEnginePower;
 			this.createSmokes(true);
         }
 
-        speedX += dSpeed * Math.cos(ship.angle) * World.dt;
-        speedY += dSpeed * Math.sin(ship.angle) * World.dt;
+        speedX += dSpeed * Math.cos(ship.angle) * Level.current.dt;
+        speedY += dSpeed * Math.sin(ship.angle) * Level.current.dt;
 
         ship.speedX = speedX;
         ship.speedY = speedY;
@@ -166,8 +166,8 @@
 
         var speedModule = Math.sqrt((Math.pow(ship.speedX, 2) + Math.pow(ship.speedY, 2)));
         if (speedModule > World.maxSpeed) {
-            ship.speedX = World.maxSpeed * ship.speedX / speedModule;
-            ship.speedY = World.maxSpeed * ship.speedY / speedModule;
+            ship.speedX = Level.current.maxSpeed * ship.speedX / speedModule;
+            ship.speedY = Level.current.maxSpeed * ship.speedY / speedModule;
         }
 
         if (gravity.isExploded) {
@@ -214,19 +214,3 @@
                 callback.call(scope || this, c, r);
     }
 });
-
-World.dt = 1;
-World.kEnginePower = .2;
-World.kRotate = .2;
-World.kGravity = .05;
-World.minimumEnginePower = .25;
-World.dFuel = .02;
-World.maxSpeed = 15;
-World.starMaxRadius = 20;
-World.drainRadiusPerWeight = .8;
-World.kStarDrain = .1;
-World.kStarToShipDrainProportion = .03;
-World.kBatteryPower = 3;
-World.trailLifeTime = 80;
-World.screenSize = 600;
-World.starInScreenAmount = 6;

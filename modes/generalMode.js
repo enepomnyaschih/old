@@ -5,7 +5,7 @@ Modes.GeneralMode = Class.extend({
 
 	generateScreen : function(col, row)
 	{
-		var maxStars = Util.random(3/4 * World.starInScreenAmount) + 1/4 * World.starInScreenAmount;
+		var maxStars = Util.random(3/4 * Level.current.starInScreenAmount) + 1/4 * Level.current.starInScreenAmount;
 		var x0y0 = World.Screen.getX0Y0(col, row);
 		var stars = [];
         for (var i = 0; i < maxStars; i++)

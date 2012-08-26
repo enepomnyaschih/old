@@ -7,18 +7,18 @@
 	{
 		this.world = world;
 		
-		this.el = $('<canvas width="' + World.screenSize + '" height="' + World.screenSize + '" />');
+		this.el = $('<canvas width="' + Level.current.screenSize + '" height="' + Level.current.screenSize + '" />');
 		this.context = this.el[0].getContext("2d");
 	},
 	
 	draw: function()
 	{
 		this.context.fillStyle = "black";
-		this.context.fillRect(0, 0, World.screenSize, World.screenSize);
+		this.context.fillRect(0, 0, Level.current.screenSize, Level.current.screenSize);
 		
 		this.context.save();
 		
-		this.context.translate(World.screenSize / 2, World.screenSize / 2);
+		this.context.translate(Level.current.screenSize / 2, Level.current.screenSize / 2);
 		this.context.scale(1, -1);
 		this.context.rotate(-this.world.ship.angle + Math.PI / 2);
 		this.context.translate(-this.world.ship.x, -this.world.ship.y);

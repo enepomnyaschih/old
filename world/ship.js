@@ -21,19 +21,19 @@
 
 	getScreenCol: function()
 	{
-		return Math.floor(this.x / World.screenSize);
+		return Math.floor(this.x / Level.current.screenSize);
 	},
 	
 	getScreenRow: function()
 	{
-		return Math.floor(this.y / World.screenSize);
+		return Math.floor(this.y / Level.current.screenSize);
 	},
 	
 	createSmokes: function( // Array of World.Smoke
 		back)
 	{
 		var result = [];
-		var floatCount = 3 * (World.minimumEnginePower + this.features.enginePower);
+		var floatCount = 3 * (Level.current.minimumEnginePower + this.features.enginePower);
 		var count = Math.floor(floatCount);
 		if (floatCount - count >= Math.random())
 			++count;

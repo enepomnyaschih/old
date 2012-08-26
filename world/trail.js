@@ -11,7 +11,7 @@
 	
 	getOpacity: function()
 	{
-		var t = 1 - this.time / World.trailLifeTime;
+		var t = 1 - this.time / Level.current.trailLifeTime;
 		return .3 * t * t;
 	}
 });
