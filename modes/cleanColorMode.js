@@ -5,16 +5,18 @@ Modes.CleanColorMode = Class.extend({
 	minColorSaturation     : 1,
 	modeType               : 0,
 	features               : null, // Array: [r, g, b];
+	maxStars               : 0,
 
-	init : function (modeType, features)
+	init : function (modeType, featuresArr, maxStars)
 	{
 		this.modeType = modeType;
-		this.features = features;
+		this.features = new World.Features(featuresArr[0], featuresArr[1], featuresArr[2]);
+		this.maxStars = maxStars
 	},
 
 	generateScreen : function(col, row)
 	{
-		var maxStars = 1 + this.generatedScreensNumber / 8;
+		var maxStars = Math.round(Util.random(this.maxStars * 3/4) + this.maxStars * 1/4);
 		var x0y0 = World.Screen.getX0Y0(col, row);
 		var stars = [];
         for (var i = 0; i < maxStars; i++)
@@ -37,7 +39,11 @@ Modes.CleanColorMode = Class.extend({
 		var srcFeatures = this.features;
 		if(this.modeType == Modes.CleanColorMode.typeAllColors)
 		{
-			srcFeatures = new World.Features(Util.random(1), Util.random(1), Util.random(1));
+			srcFeatures = new World.Features(Util.random(1), Util.random(1), Util.random(2));
+			if(srcFeatures.fuel == 0 && srcFeatures.batteryPower == 0 && srcFeatures.enginePower == 0)
+			{
+				srcFeatures.fuel = 1;
+			}
 		}
 
 		starFeatures.fuel = this.getFeatureBySaturation(srcFeatures.fuel, saturation);
