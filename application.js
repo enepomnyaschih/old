@@ -69,9 +69,7 @@
 	{
 		if (event.which == 32)
 		{
-			if (this.world && (this.world.ship.deadTime || this.world.ship.isWinner))
-				this.restart();
-			else if (this.timer)
+			if (this.timer && !this.world.ship.deadTime && !this.world.ship.isWinner)
 				this.stop();
 			else
 				this.start();
