@@ -70,15 +70,15 @@
 
     generateNextState : function()
     {
-		if (this.ship.deadTime)
+		if (this.ship.deadTime || this.ship.winFlag)
 		{
 			++this.ship.deadTime;
 			this.ship.x += this.ship.speedX;
 			this.ship.y += this.ship.speedY;
             this.generateScreens(this.ship.x, this.ship.y);
 		}
-		
-		this.moveShip();
+
+        this.moveShip();
 		
 		this.trails = this.trails.filter(function(trail) { return ++trail.time <= World.Trail.lifeTime; });
 		this.smokes = this.smokes.filter(function(smoke) { return ++smoke.time <= World.Smoke.lifeTime; });
@@ -87,7 +87,7 @@
 	moveShip: function()
 	{
         var ship = this.ship;
-		if (ship.deadTime)
+		if (ship.deadTime || ship.winFlag)
 			return;
 		
         var x = ship.x;
@@ -173,6 +173,15 @@
 			ship.speedX /= s;
 			ship.speedY /= s;
         }
+
+        if (ship.features.fuel >= 1 
+            && ship.features.batteryPower >= 1 
+            && ship.features.enginePower >= 1)
+        {
+            ship.winFlag = true;
+            ship.speedX = 100;
+            ship.speedY = 100;
+        }
 		
 		this.trails.push(new World.Trail(this.ship.x, this.ship.y));
     },
@@ -204,7 +213,7 @@ World.kEnginePower = .2;
 
 World.kRotate = .2;
 
-World.kGravity = .05;
+World.kGravity = .5;
 
 World.minimumEnginePower = .25;
 
