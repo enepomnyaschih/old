@@ -42,5 +42,10 @@ World.Features = Class.extend({
         handler("enginePower");
         handler("batteryPower");
         handler("fuel");
-    }
+    },
+	
+	getMax: function()
+	{
+		return Math.max(this.enginePower, this.batteryPower, this.fuel);
+	}
 });

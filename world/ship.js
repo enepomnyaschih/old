@@ -66,6 +66,6 @@
 
     getRayAngle : function()
     {
-        return 2 * 3.14;
+        return Math.PI;
     }
 });

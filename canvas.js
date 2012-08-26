@@ -27,6 +27,7 @@
 		var screenRow = this.world.ship.getScreenRow();
 		
 		this.world.eachScreen(screenCol, screenRow, this.drawBg, this);
+		this.drawRay();
 		this.world.trails.each(this.drawTrail, this);
 		this.world.eachScreen(screenCol, screenRow, this.drawScreenStars, this);
 		this.world.smokes.each(this.drawSmoke, this);
@@ -57,6 +58,60 @@
 			this.drawText("You are on the top of Color EVOLUTION", 300, 230, "white");
 			this.drawText("Press Space or click to try again", 300, 440, "gray");
 		}
+	},
+	
+	drawRay: function()
+	{
+		if (this.world.ship.deadTime)
+			return;
+		
+		this.context.save();
+		
+		var maxRayLength = 7 * Level.current.starMaxRadius;
+		var shipAngle = this.world.ship.angle;
+		var rayAngle = this.world.ship.getRayAngle();
+		
+		this.context.translate(this.world.ship.x, this.world.ship.y);
+		this.context.scale(maxRayLength, maxRayLength);
+		
+		this.context.beginPath();
+		this.context.arc(0, 0, 1, shipAngle - rayAngle, shipAngle + rayAngle);
+		this.context.lineTo(0, 0);
+		this.context.closePath();
+		
+		this.context.fillStyle = this.createRadialGradient("rgba(128, 128, 128, 1)", "rgba(128, 128, 128, 0)");
+		this.context.fill();
+		
+		//this.drawDrainingRay({ y1 : -Math.PI / 16, y2 : -Math.PI / 25, star: new World.Star(0, 0, new World.Features(1, 0, 0)), s: 80 });
+		
+		if (this.world.gravity)
+			this.world.gravity.drainingStars.each(this.drawDrainingRay, this);
+		
+		this.context.restore();
+	},
+	
+	drawDrainingRay: function(drainingStar)
+	{
+		var maxRayLength = 7 * Level.current.starMaxRadius;
+		
+		this.context.beginPath();
+		this.context.arc(0, 0, drainingStar.s / maxRayLength, drainingStar.y1, drainingStar.y2);
+		this.context.lineTo(0, 0);
+		this.context.closePath();
+		
+		var rgb = this.getFeaturesRgb(drainingStar.star.features, 0);
+		var featuresMax = drainingStar.star.features.getMax();
+		
+		this.context.fillStyle = this.createRadialGradient(Util.rgbaStr(rgb, featuresMax), Util.rgbaStr(rgb, 0));
+		this.context.fill();
+		
+		this.context.beginPath();
+		this.context.arc(0, 0, drainingStar.s / maxRayLength, drainingStar.y1, drainingStar.y2);
+		this.context.arc(0, 0, maxRayLength, drainingStar.y2, drainingStar.y1, true);
+		this.context.closePath();
+		
+		this.context.fillStyle = this.createRadialGradient("rgba(0, 0, 0, 1)", "rgba(0, 0, 0, 0)");
+		this.context.fill();
 	},
 	
 	drawTrail: function(trail)
@@ -228,6 +283,14 @@
 		this.drawText("consume their power to improve", 300, 250, "#0F0");
 		this.drawText("your starship. Save energy", 300, 280, "#0F0");
 		this.drawText("Press Space or click to start", 300, 340, "#0F0");
+	},
+	
+	createRadialGradient: function(a, b)
+	{
+		var gradient = this.context.createRadialGradient(0, 0, 0, 0, 0, 1);
+		gradient.addColorStop(0, a);
+		gradient.addColorStop(1, b);
+		return gradient;
 	}
 });
 
