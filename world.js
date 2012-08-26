@@ -170,7 +170,7 @@
             ship.speedY = Level.current.maxSpeed * ship.speedY / speedModule;
         }
 
-        if (this.monster == null && this.ship.features.enginePower > 0.7 && this.ship.features.batteryPower > 0.7) {
+        if (this.monster == null && this.ship.features.enginePower > 0.5 && this.ship.features.batteryPower > 0.5) {
             this.monster = new World.Monster(this.ship.x - 1000, this.ship.y);
         }
 
